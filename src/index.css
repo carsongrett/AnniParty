@@ -1,0 +1,71 @@
+@import "tailwindcss";
+@import "@fontsource/cormorant-garamond/latin-500.css";
+@import "@fontsource/cormorant-garamond/latin-600.css";
+@import "@fontsource/outfit/latin-400.css";
+@import "@fontsource/outfit/latin-500.css";
+
+@theme {
+  --font-serif: "Cormorant Garamond", "Liberation Serif", Georgia, serif;
+  --font-sans: "Outfit", "Inter", system-ui, sans-serif;
+  --color-ivory: #f6f1e8;
+  --color-cream: #efe4d4;
+  --color-paper: #fffcf8;
+  --color-ink: #2c2825;
+  --color-muted: #6d645b;
+  --color-line: #e3d6c6;
+}
+
+html {
+  scroll-padding-top: 7rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+:focus-visible {
+  outline: 2px solid #8a6a45;
+  outline-offset: 3px;
+}
+
+::selection {
+  background: #e3d6c6;
+  color: #2c2825;
+}
+
+/* Element + class beats the browser's dialog rule, which otherwise
+   keeps the viewer as a small centered box. */
+dialog.photo-dialog {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: #1c1815;
+  color: #f6f1e8;
+}
+
+dialog.photo-dialog::backdrop {
+  background: #1c1815;
+}
+
+.rsvp-embed iframe {
+  width: 100%;
+  max-width: 100%;
+  border: 0;
+  background: #fffcf8;
+}
