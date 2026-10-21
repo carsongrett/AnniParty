@@ -73,7 +73,7 @@ export function Gallery() {
               <button
                 ref={closeRef}
                 type="button"
-                className="inline-flex min-h-11 min-w-11 items-center justify-center px-3 text-sm tracking-[0.14em] uppercase"
+                className="inline-flex min-h-11 items-center justify-center border border-ivory/50 px-4 text-sm tracking-[0.14em] uppercase"
                 onClick={() => setActive(null)}
               >
                 Close
@@ -92,7 +92,7 @@ export function Gallery() {
             <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3 p-4">
               <button
                 type="button"
-                className="inline-flex min-h-12 items-center justify-center px-3 text-sm tracking-[0.12em] uppercase"
+                className="inline-flex min-h-12 items-center justify-center border border-ivory/50 px-3 text-sm tracking-[0.12em] uppercase"
                 onClick={(click) => {
                   click.stopPropagation();
                   if (active !== null) show(active - 1);
@@ -105,7 +105,7 @@ export function Gallery() {
               </p>
               <button
                 type="button"
-                className="inline-flex min-h-12 items-center justify-center px-3 text-sm tracking-[0.12em] uppercase"
+                className="inline-flex min-h-12 items-center justify-center border border-ivory/50 px-3 text-sm tracking-[0.12em] uppercase"
                 onClick={(click) => {
                   click.stopPropagation();
                   if (active !== null) show(active + 1);

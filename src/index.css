@@ -43,20 +43,24 @@ img {
   color: #2c2825;
 }
 
-.photo-dialog {
-  width: 100vw;
-  height: 100dvh;
-  max-width: 100vw;
-  max-height: 100dvh;
+/* Element + class beats the browser's dialog rule, which otherwise
+   keeps the viewer as a small centered box. */
+dialog.photo-dialog {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
   margin: 0;
   padding: 0;
   border: 0;
-  background: transparent;
+  background: #1c1815;
   color: #f6f1e8;
 }
 
-.photo-dialog::backdrop {
-  background: rgba(28, 24, 21, 0.92);
+dialog.photo-dialog::backdrop {
+  background: #1c1815;
 }
 
 .rsvp-embed iframe {
