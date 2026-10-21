@@ -49,9 +49,13 @@ export function Gallery() {
           {photos.map((item, index) => (
             <li
               key={item.src}
-              className={index === 0 ? "col-span-2 md:row-span-2" : "min-w-0"}
+              className={
+                index === 0
+                  ? "relative col-span-2 aspect-[4/3] overflow-hidden md:row-span-2 md:aspect-auto"
+                  : "relative aspect-[3/4] overflow-hidden"
+              }
             >
-              <PhotoButton photo={item} onOpen={() => setActive(index)} lead={index === 0} />
+              <PhotoButton photo={item} onOpen={() => setActive(index)} />
             </li>
           ))}
         </ul>
@@ -124,16 +128,14 @@ export function Gallery() {
 function PhotoButton({
   photo,
   onOpen,
-  lead,
 }: {
   photo: Photo;
   onOpen: () => void;
-  lead: boolean;
 }) {
   return (
     <button
       type="button"
-      className="block h-full w-full"
+      className="absolute inset-0 block"
       aria-haspopup="dialog"
       aria-label={`View larger: ${photo.alt}`}
       onClick={onOpen}
@@ -145,9 +147,7 @@ function PhotoButton({
         height={photo.height}
         loading="lazy"
         decoding="async"
-        className={`h-full w-full object-cover ${
-          lead ? "aspect-[4/3] md:aspect-auto md:min-h-full" : "aspect-[3/4]"
-        }`}
+        className="h-full w-full object-cover"
       />
     </button>
   );
