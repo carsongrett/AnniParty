@@ -24,6 +24,7 @@ export function Celebration() {
             loading="lazy"
             decoding="async"
             className="aspect-[5/4] w-full object-cover"
+            style={{ objectPosition: photo.position ?? "center" }}
           />
         ) : null}
       </div>

@@ -10,6 +10,8 @@ export type Photo = {
   alt: string;
   width: number;
   height: number;
+  /** Where the crop keeps the subject, for example "center 30%". */
+  position?: string;
 };
 
 export type ScheduleItem = {
@@ -26,7 +28,7 @@ const rsvpDeadline =
   "We're aiming for December 15. The final deadline is not set yet.";
 
 export const event = {
-  name: "The Grett's",
+  name: "The Gretts",
   coupleNames: "Carson & Mason",
   date: "Saturday, January 16, 2027",
   anniversaryDate: "January 10, 2026",
@@ -90,17 +92,19 @@ export const event = {
   rsvpifyFrameHeight: 960,
 
   hero: {
-    src: "photos/hero.jpg",
-    alt: "A sunlit table set with cream linens, ceramic plates, and white flowers.",
-    width: 864,
-    height: 1152,
+    src: "photos/dinner.jpg",
+    alt: "Carson and Mason smiling together at a candlelit dinner table.",
+    width: 2048,
+    height: 1536,
+    position: "center 30%",
   } satisfies Photo,
 
   celebrationImage: {
-    src: "photos/celebration.jpg",
-    alt: "Two glasses of water and an olive branch on cream linen.",
-    width: 1152,
-    height: 864,
+    src: "photos/beach.jpg",
+    alt: "Carson and Mason standing together on a beach at dusk.",
+    width: 1800,
+    height: 2400,
+    position: "center 74%",
   } satisfies Photo,
 
   footerImage: {
@@ -112,34 +116,10 @@ export const event = {
 
   gallery: [
     {
-      src: "photos/gallery-5.jpg",
-      alt: "A long outdoor table set with cream linens in warm evening light.",
-      width: 1152,
-      height: 864,
-    },
-    {
-      src: "photos/gallery-1.jpg",
-      alt: "A pale stone archway in late-afternoon light.",
-      width: 864,
-      height: 1152,
-    },
-    {
-      src: "photos/gallery-3.jpg",
-      alt: "A lit taper candle and a white flower in a ceramic cup.",
-      width: 1024,
-      height: 1024,
-    },
-    {
-      src: "photos/gallery-4.jpg",
-      alt: "A folded cream linen napkin with a sprig of rosemary.",
-      width: 864,
-      height: 1152,
-    },
-    {
-      src: "photos/gallery-2.jpg",
-      alt: "A simple plate of roasted potatoes and herbs on ivory ceramic.",
-      width: 1152,
-      height: 864,
+      src: "photos/city.jpg",
+      alt: "Carson and Mason standing in the middle of a city avenue.",
+      width: 1800,
+      height: 2700,
     },
   ] satisfies Photo[],
 

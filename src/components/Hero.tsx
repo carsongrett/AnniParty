@@ -12,7 +12,8 @@ export function Hero() {
         height={event.hero.height}
         fetchPriority="high"
         decoding="async"
-        className="h-[38svh] min-h-52 w-full object-cover object-[center_45%] sm:h-[48vh] md:h-[58vh]"
+        className="h-[38svh] min-h-52 w-full object-cover sm:h-[48vh] md:h-[58vh]"
+        style={{ objectPosition: event.hero.position ?? "center" }}
       />
       <div className="mx-auto max-w-3xl px-5 py-12 text-center md:px-8 md:py-20">
         <h1 className="font-serif text-5xl leading-[0.95] text-ink sm:text-6xl md:text-7xl">
