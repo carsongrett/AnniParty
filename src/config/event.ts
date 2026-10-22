@@ -82,14 +82,15 @@ export const event = {
    * Paste the snippet from RSVPify: Share & Invite → Embed your Form.
    * Leave "" until you have it.
    */
-  rsvpifyEmbedCode: "",
+  rsvpifyEmbedCode:
+    '<script type="text/javascript" src="https://thegretts.rsvpify.com/embed"></script>',
   /**
    * Optional event URL, used only when rsvpifyEmbedCode is empty.
    * Example: "https://your-event.rsvpify.com"
    */
   rsvpifyEventUrl: "",
   /** Optional direct link shown under the form as a fallback. */
-  rsvpifyUrl: "",
+  rsvpifyUrl: "https://thegretts.rsvpify.com",
   /** Increase if the embedded form is cut off on a phone. */
   rsvpifyFrameHeight: 960,
 
