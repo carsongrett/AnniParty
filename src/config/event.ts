@@ -26,13 +26,13 @@ const rsvpDeadline =
   "We're aiming for December 15. The final deadline is not set yet.";
 
 export const event = {
-  name: "The Gretts",
+  name: "The Grett's",
   coupleNames: "Carson & Mason",
   date: "Saturday, January 16, 2027",
   anniversaryDate: "January 10, 2026",
   tagline: "",
   welcomeMessage:
-    "We were married on January 10, 2026. Please join us at Tejas Brewery to celebrate our first year.",
+    "We were married on January 10, 2026. Please join us at Tejas Brewery for a night of food, drinks, and music to celebrate our first year.",
   closingMessage: "We can't wait to celebrate with you.",
 
   /** Shown in The Details. */

@@ -15,10 +15,12 @@ export function Hero() {
         className="h-[38svh] min-h-52 w-full object-cover object-[center_45%] sm:h-[48vh] md:h-[58vh]"
       />
       <div className="mx-auto max-w-3xl px-5 py-12 text-center md:px-8 md:py-20">
-        <h1 className="font-serif text-6xl leading-[0.95] text-ink sm:text-7xl md:text-8xl">
+        <h1 className="font-serif text-5xl leading-[0.95] text-ink sm:text-6xl md:text-7xl">
           {event.name}
         </h1>
-        <p className="mt-4 text-lg tracking-wide text-muted">{event.coupleNames}</p>
+        <p className="mt-3 font-serif text-3xl leading-tight text-ink sm:text-4xl">
+          {event.coupleNames}
+        </p>
         <p className="mt-10 font-serif text-3xl text-ink md:text-4xl">{event.date}</p>
         <p className="mt-2 text-sm tracking-[0.16em] text-ink/80 uppercase">
           {event.startTime} – {event.endTime}
