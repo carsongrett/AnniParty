@@ -20,7 +20,7 @@ export function Header() {
           href="#top"
           className="min-w-0 truncate font-serif text-xl tracking-tight text-ink"
         >
-          {event.coupleNames}
+          {event.name}
         </a>
         <div className="flex items-center gap-5">
           <nav aria-label="Sections" className="hidden items-center gap-5 sm:flex">
