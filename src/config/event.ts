@@ -52,8 +52,7 @@ export const event = {
   mapsUrl:
     "https://www.google.com/maps/search/?api=1&query=2101%20Summer%20St%2C%20Houston%2C%20TX%2077007",
 
-  dressCode:
-    "Cocktail attire. Button-downs and sport coats with slacks or chinos, and dresses.",
+  dressCode: "Cocktail attire.",
   menu:
     "Bites and pizzas for dinner. The bar is open, with beer, wine, and spirits.",
 
