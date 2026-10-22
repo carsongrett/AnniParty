@@ -3,10 +3,6 @@
 @import "@fontsource/cormorant-garamond/latin-600.css";
 @import "@fontsource/outfit/latin-400.css";
 @import "@fontsource/outfit/latin-500.css";
-@import "@fontsource/fraunces/latin-500.css";
-@import "@fontsource/fraunces/latin-600.css";
-@import "@fontsource/newsreader/latin-500.css";
-@import "@fontsource/newsreader/latin-600.css";
 
 @theme {
   --font-serif: "Cormorant Garamond", "Liberation Serif", Georgia, serif;
@@ -17,27 +13,6 @@
   --color-ink: #2c2825;
   --color-muted: #6d645b;
   --color-line: #e3d6c6;
-}
-
-/* Temporary style previews. Ivory is the default above. */
-[data-theme="evening"] {
-  --color-ivory: #1a1714;
-  --color-cream: #241f1b;
-  --color-paper: #2c261f;
-  --color-ink: #f4efe6;
-  --color-muted: #cbbba8;
-  --color-line: #3f372f;
-  --font-serif: "Fraunces", Georgia, serif;
-}
-
-[data-theme="paper"] {
-  --color-ivory: #fbf7f2;
-  --color-cream: #f4ebe3;
-  --color-paper: #fffdfb;
-  --color-ink: #241c18;
-  --color-muted: #7a655c;
-  --color-line: #eadfd4;
-  --font-serif: "Newsreader", Georgia, serif;
 }
 
 html {

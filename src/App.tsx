@@ -6,7 +6,6 @@ import { Gallery } from "./components/Gallery";
 import { Header } from "./components/Header";
 import { Hero } from "./components/Hero";
 import { RSVPSection } from "./components/RSVPSection";
-import { StylePreview } from "./components/StylePreview";
 import { event } from "./config/event";
 
 export default function App() {
@@ -15,7 +14,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-svh bg-ivory pb-28 font-sans text-ink antialiased">
+    <div className="min-h-svh bg-ivory font-sans text-ink antialiased">
       <Header />
       <main id="content">
         <Hero />
@@ -25,7 +24,6 @@ export default function App() {
         <FAQ />
         <RSVPSection />
       </main>
-      <StylePreview />
     </div>
   );
 }
