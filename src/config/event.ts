@@ -95,11 +95,11 @@ export const event = {
   rsvpifyFrameHeight: 480,
 
   hero: {
-    src: "photos/hero.jpg",
+    src: "photos/dinner.jpg",
     alt: "Carson and Mason smiling together at a candlelit dinner table.",
-    width: 1448,
-    height: 914,
-    position: "center 32%",
+    width: 2048,
+    height: 1536,
+    position: "center 30%",
   } satisfies Photo,
 
   celebrationImage: {
