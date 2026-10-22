@@ -91,8 +91,8 @@ export const event = {
   rsvpifyEventUrl: "",
   /** Optional direct link shown under the form as a fallback. */
   rsvpifyUrl: "https://thegretts.rsvpify.com",
-  /** Height of the embedded form, in pixels. Guests can scroll inside it. */
-  rsvpifyFrameHeight: 480,
+  /** Increase if the embedded form is cut off on a phone. */
+  rsvpifyFrameHeight: 960,
 
   hero: {
     src: "photos/dinner.jpg",
