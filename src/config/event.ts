@@ -119,10 +119,28 @@ export const event = {
 
   gallery: [
     {
+      src: "photos/tuxedos.jpg",
+      alt: "Carson and Mason in black tuxedos with pink boutonnieres.",
+      width: 1500,
+      height: 2000,
+    },
+    {
       src: "photos/city.jpg",
       alt: "Carson and Mason standing in the middle of a city avenue.",
       width: 1800,
       height: 2700,
+    },
+    {
+      src: "photos/patio.jpg",
+      alt: "Carson and Mason with friends on a brick patio.",
+      width: 2000,
+      height: 1351,
+    },
+    {
+      src: "photos/restaurant.jpg",
+      alt: "Carson and Mason with friends around a table.",
+      width: 2000,
+      height: 1500,
     },
   ] satisfies Photo[],
 

@@ -45,9 +45,9 @@ export function Gallery() {
         <h2 className="font-serif text-4xl leading-tight text-ink md:text-5xl">
           Gallery
         </h2>
-        <ul className="mt-10 grid grid-cols-2 gap-2 sm:gap-3 md:grid-cols-4">
+        <ul className="mt-10 columns-2 gap-2 sm:gap-3 md:columns-3">
           {photos.map((item, index) => (
-            <li key={item.src} className={frameClass(index, item, photos.length)}>
+            <li key={item.src} className="mb-2 break-inside-avoid sm:mb-3">
               <PhotoButton photo={item} onOpen={() => setActive(index)} />
             </li>
           ))}
@@ -118,16 +118,6 @@ export function Gallery() {
   );
 }
 
-function frameClass(index: number, photo: Photo, count: number) {
-  if (index !== 0) return "relative aspect-[3/4] overflow-hidden";
-  if (photo.height > photo.width) {
-    return `relative col-span-2 aspect-[3/4] overflow-hidden${
-      count === 1 ? " md:col-start-2" : ""
-    }`;
-  }
-  return "relative col-span-2 aspect-[4/3] overflow-hidden md:row-span-2 md:aspect-auto";
-}
-
 function PhotoButton({
   photo,
   onOpen,
@@ -138,7 +128,7 @@ function PhotoButton({
   return (
     <button
       type="button"
-      className="absolute inset-0 block"
+      className="block w-full"
       aria-haspopup="dialog"
       aria-label={`View larger: ${photo.alt}`}
       onClick={onOpen}
@@ -150,8 +140,7 @@ function PhotoButton({
         height={photo.height}
         loading="lazy"
         decoding="async"
-        className="h-full w-full object-cover"
-        style={{ objectPosition: photo.position ?? "center" }}
+        className="h-auto w-full"
       />
     </button>
   );
