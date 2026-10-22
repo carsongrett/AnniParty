@@ -25,21 +25,22 @@ export type FaqItem = {
 const rsvpDeadline = "[RSVP_DEADLINE]";
 
 export const event = {
-  name: "[EVENT_NAME]",
-  coupleNames: "[COUPLE_NAMES]",
-  date: "[EVENT_DATE]",
-  tagline: "[EVENT_TAGLINE]",
-  welcomeMessage: "[WELCOME_MESSAGE]",
-  closingMessage: "[CLOSING_MESSAGE]",
+  name: "Our First Year",
+  coupleNames: "Carson & Mason",
+  date: "Saturday, January 16, 2027",
+  tagline: "Celebrating one year of marriage",
+  welcomeMessage:
+    "We were married on January 10, 2026. Please join us at Tejas Brewery to celebrate our first year.",
+  closingMessage: "We can't wait to celebrate with you.",
 
   /** Shown in The Details. */
-  startTime: "[START_TIME]",
-  endTime: "[END_TIME]",
+  startTime: "5:00 pm",
+  endTime: "9:00 pm",
   /** IANA time zone once known, for example "America/Los_Angeles". */
-  timeZone: "[TIME_ZONE]",
+  timeZone: "America/Chicago",
 
-  venueName: "[VENUE_NAME]",
-  venueAddress: "[VENUE_ADDRESS]",
+  venueName: "Tejas Brewery",
+  venueAddress: "Skyline Lounge, 2101 Summer St, Houston, TX 77007",
   /**
    * Optional. A Google Maps link is created from venueAddress when that
    * value is no longer a placeholder. Set this to override that link.
@@ -47,17 +48,16 @@ export const event = {
   mapsUrl: "",
 
   dressCode: "[DRESS_CODE]",
-  menu: "[MENU_DESCRIPTION]",
+  menu:
+    "Food will be out for everyone to share. Expect shrimp campechana shooters, beef empanadas, elote mac and cheese balls, and pizza. The bar is open, with beer, wine, and spirits.",
 
   /**
    * Add, edit, or remove rows here.
    * Set this to [] to hide the schedule.
    */
   schedule: [
-    { time: "[TIME_1]", label: "Welcome / Cocktails" },
-    { time: "[TIME_2]", label: "Dinner" },
-    { time: "[TIME_3]", label: "Celebration" },
-    { time: "[TIME_4]", label: "Event Concludes" },
+    { time: "5:00 pm", label: "Welcome" },
+    { time: "9:00 pm", label: "Event concludes" },
   ] as ScheduleItem[],
 
   /**
@@ -66,8 +66,8 @@ export const event = {
    * Leave both blank until the date is final. Calendar buttons stay off until
    * these and timeZone are valid.
    */
-  calendarStart: "",
-  calendarEnd: "",
+  calendarStart: "2027-01-16T17:00:00",
+  calendarEnd: "2027-01-16T21:00:00",
   /** Optional. Falls back to the welcome message when that text is real. */
   calendarDescription: "",
 
