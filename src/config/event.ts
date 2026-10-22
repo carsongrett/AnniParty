@@ -91,8 +91,8 @@ export const event = {
   rsvpifyEventUrl: "",
   /** Optional direct link shown under the form as a fallback. */
   rsvpifyUrl: "https://thegretts.rsvpify.com",
-  /** Increase if the embedded form is cut off on a phone. */
-  rsvpifyFrameHeight: 960,
+  /** Height of the embedded form. Guests can scroll inside it. */
+  rsvpifyFrameHeight: 480,
 
   hero: {
     src: "photos/dinner.jpg",
@@ -170,9 +170,6 @@ export const event = {
       question: "Will dietary restrictions be accommodated?",
       answer: "[DIETARY_INFORMATION]",
     },
-    { question: "Are children invited?", answer: "[CHILDREN_POLICY]" },
-    { question: "Can I bring a plus-one?", answer: "[PLUS_ONE_POLICY]" },
-    { question: "When is the RSVP deadline?", answer: rsvpDeadline },
     {
       question: "Should I bring a gift?",
       answer:

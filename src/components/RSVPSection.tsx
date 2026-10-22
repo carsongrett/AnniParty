@@ -1,13 +1,11 @@
 import { useEffect, useRef } from "react";
 import { event } from "../config/event";
-import { secondaryButtonClass } from "../lib/styles";
 import { httpUrl } from "../lib/text";
 
 export function RSVPSection() {
   const embedCode = event.rsvpifyEmbedCode.trim();
   const eventUrl = embedSrc(event.rsvpifyEventUrl);
   const fallback = httpUrl(event.rsvpifyUrl);
-  const hasEmbed = Boolean(embedCode || eventUrl);
 
   return (
     <section id="rsvp" className="scroll-mt-32 border-t border-line bg-cream">
@@ -39,22 +37,15 @@ export function RSVPSection() {
         )}
 
         {fallback ? (
-          <p className="mt-6 text-center">
+          <p className="mt-4 text-center">
             <a
               href={fallback}
-              className={secondaryButtonClass}
+              className="text-sm text-muted underline decoration-line underline-offset-4"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Open the RSVP form
+              Open in browser
             </a>
-          </p>
-        ) : null}
-
-        {hasEmbed ? (
-          <p className="mx-auto mt-4 max-w-md text-center text-sm text-muted">
-            If the form feels cramped on your phone, scroll inside it. A direct
-            link can be added as a backup.
           </p>
         ) : null}
       </div>
