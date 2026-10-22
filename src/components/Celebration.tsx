@@ -23,7 +23,7 @@ export function Celebration() {
             height={photo.height}
             loading="lazy"
             decoding="async"
-            className="aspect-[4/3] w-full object-cover"
+            className="aspect-[5/4] w-full object-cover"
           />
         ) : null}
       </div>

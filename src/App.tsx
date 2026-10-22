@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { Celebration } from "./components/Celebration";
 import { EventDetails } from "./components/EventDetails";
 import { FAQ } from "./components/FAQ";
-import { Footer } from "./components/Footer";
 import { Gallery } from "./components/Gallery";
 import { Header } from "./components/Header";
 import { Hero } from "./components/Hero";
@@ -25,7 +24,6 @@ export default function App() {
         <FAQ />
         <RSVPSection />
       </main>
-      <Footer />
     </div>
   );
 }

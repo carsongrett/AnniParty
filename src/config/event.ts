@@ -22,7 +22,8 @@ export type FaqItem = {
   answer: string;
 };
 
-const rsvpDeadline = "[RSVP_DEADLINE]";
+const rsvpDeadline =
+  "We're aiming for December 15. The final deadline is not set yet.";
 
 export const event = {
   name: "Our First Year",
@@ -47,7 +48,7 @@ export const event = {
    */
   mapsUrl: "",
 
-  dressCode: "[DRESS_CODE]",
+  dressCode: "To be announced.",
   menu:
     "Food will be out for everyone to share. Expect shrimp campechana shooters, beef empanadas, elote mac and cheese balls, and pizza. The bar is open, with beer, wine, and spirits.",
 
@@ -55,10 +56,7 @@ export const event = {
    * Add, edit, or remove rows here.
    * Set this to [] to hide the schedule.
    */
-  schedule: [
-    { time: "5:00 pm", label: "Welcome" },
-    { time: "9:00 pm", label: "Event concludes" },
-  ] as ScheduleItem[],
+  schedule: [] as ScheduleItem[],
 
   /**
    * Local start and end for Add to Calendar, without a zone suffix.
@@ -105,7 +103,7 @@ export const event = {
   } satisfies Photo,
 
   footerImage: {
-    src: "photos/footer.jpg",
+    src: "",
     alt: "",
     width: 1280,
     height: 720,
@@ -145,8 +143,15 @@ export const event = {
   ] satisfies Photo[],
 
   faqs: [
-    { question: "Where should I park?", answer: "[PARKING_INFORMATION]" },
-    { question: "Is rideshare recommended?", answer: "[RIDESHARE_GUIDANCE]" },
+    {
+      question: "Where should I park?",
+      answer:
+        "The brewery has a parking lot with security. Valet is still being confirmed.",
+    },
+    {
+      question: "Is rideshare recommended?",
+      answer: "Rideshare is encouraged. Please do not drink and drive.",
+    },
     {
       question: "Will dietary restrictions be accommodated?",
       answer: "[DIETARY_INFORMATION]",

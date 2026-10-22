@@ -12,7 +12,7 @@ export function Hero() {
         height={event.hero.height}
         fetchPriority="high"
         decoding="async"
-        className="h-[46svh] min-h-64 w-full object-cover object-[center_45%] sm:h-[62vh] md:h-[76vh]"
+        className="h-[38svh] min-h-52 w-full object-cover object-[center_45%] sm:h-[48vh] md:h-[58vh]"
       />
       <div className="mx-auto max-w-3xl px-5 py-12 text-center md:px-8 md:py-20">
         <p className="text-xs tracking-[0.28em] text-muted uppercase">
