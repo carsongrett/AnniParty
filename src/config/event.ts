@@ -142,6 +142,18 @@ export const event = {
       width: 2000,
       height: 1500,
     },
+    {
+      src: "photos/license.jpg",
+      alt: "Carson and Mason holding their marriage license.",
+      width: 1500,
+      height: 2000,
+    },
+    {
+      src: "photos/lights.jpg",
+      alt: "Carson and Mason with an arm around each other under pink and blue lights.",
+      width: 1333,
+      height: 2000,
+    },
   ] satisfies Photo[],
 
   faqs: [
