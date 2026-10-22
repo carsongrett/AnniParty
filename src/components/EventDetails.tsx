@@ -51,7 +51,7 @@ export function EventDetails() {
       ),
     },
     {
-      label: "Venue",
+      label: "Location",
       value: (
         <>
           <span className="block">{event.venueName}</span>
