@@ -31,8 +31,8 @@ export function EventDetails() {
   const maps = mapsHref(event.mapsUrl, event.venueAddress);
   const location = joinVisible([event.venueName, event.venueAddress], "\n");
   const calendar = buildCalendar({
-    name: event.name,
-    description: event.calendarDescription || event.welcomeMessage,
+    name: event.calendarTitle,
+    description: event.calendarDescription,
     timeZone: event.timeZone,
     start: event.calendarStart,
     end: event.calendarEnd,

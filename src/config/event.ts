@@ -68,7 +68,9 @@ export const event = {
    */
   calendarStart: "2027-01-16T17:00:00",
   calendarEnd: "2027-01-16T21:00:00",
-  /** Optional. Falls back to the welcome message when that text is real. */
+  /** Title used for Google Calendar and the .ics file. */
+  calendarTitle: "Grett's Anniversary Party",
+  /** Leave "" for no calendar description. */
   calendarDescription: "",
 
   rsvpDeadline,
