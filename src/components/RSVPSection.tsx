@@ -1,13 +1,11 @@
 import { useEffect, useRef } from "react";
 import { event } from "../config/event";
-import { secondaryButtonClass } from "../lib/styles";
 import { httpUrl } from "../lib/text";
 
 export function RSVPSection() {
   const embedCode = event.rsvpifyEmbedCode.trim();
   const eventUrl = embedSrc(event.rsvpifyEventUrl);
   const fallback = httpUrl(event.rsvpifyUrl);
-  const hasEmbed = Boolean(embedCode || eventUrl);
 
   return (
     <section id="rsvp" className="scroll-mt-32 border-t border-line bg-cream">
@@ -39,22 +37,15 @@ export function RSVPSection() {
         )}
 
         {fallback ? (
-          <p className="mt-6 text-center">
+          <p className="mt-4 text-center">
             <a
               href={fallback}
-              className={secondaryButtonClass}
+              className="text-sm text-muted underline decoration-line underline-offset-4"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Open the RSVP form
+              Open in browser
             </a>
-          </p>
-        ) : null}
-
-        {hasEmbed ? (
-          <p className="mx-auto mt-4 max-w-md text-center text-sm text-muted">
-            If the form feels cramped on your phone, scroll inside it. A direct
-            link can be added as a backup.
           </p>
         ) : null}
       </div>
@@ -68,6 +59,7 @@ function EmbedCode({ html, minHeight }: { html: string; minHeight: number }) {
   useEffect(() => {
     const root = containerRef.current;
     if (!root) return;
+    const embedRoot = root;
 
     const template = document.createElement("template");
     template.innerHTML = html;
@@ -75,17 +67,16 @@ function EmbedCode({ html, minHeight }: { html: string; minHeight: number }) {
     for (const script of scripts) script.remove();
     root.replaceChildren(template.content);
 
-    const frames = [...root.querySelectorAll("iframe")];
-    for (const frame of frames) {
-      frame.style.width = "100%";
-      frame.style.maxWidth = "100%";
-      frame.style.border = "0";
-      frame.style.display = "block";
-      if (!frame.getAttribute("height") && !frame.style.height) {
-        frame.style.height = `${minHeight}px`;
-      }
-      if (!frame.title) frame.title = "RSVP form";
+    for (const frame of embedRoot.querySelectorAll("iframe")) {
+      fitFrame(frame, minHeight);
     }
+
+    const observer = new MutationObserver(() => {
+      for (const frame of embedRoot.querySelectorAll("iframe")) {
+        fitFrame(frame, minHeight);
+      }
+    });
+    observer.observe(embedRoot, { childList: true, subtree: true, attributes: true });
 
     for (const oldScript of scripts) {
       const script = document.createElement("script");
@@ -93,24 +84,37 @@ function EmbedCode({ html, minHeight }: { html: string; minHeight: number }) {
         script.setAttribute(attr.name, attr.value);
       }
       script.text = oldScript.textContent ?? "";
-      root.appendChild(script);
+      embedRoot.appendChild(script);
     }
 
     function onMessage(message: MessageEvent) {
-      const frame = frames.find((item) => item.contentWindow === message.source);
+      const frame = [...embedRoot.querySelectorAll("iframe")].find(
+        (item) => item.contentWindow === message.source,
+      );
       const height = messageHeight(message.data);
-      if (!frame || height === null || height < 240 || height > 8000) return;
-      frame.style.height = `${height}px`;
+      if (!frame || height === null || height < 240) return;
+      frame.style.height = `${Math.min(height, minHeight)}px`;
     }
 
     window.addEventListener("message", onMessage);
     return () => {
+      observer.disconnect();
       window.removeEventListener("message", onMessage);
-      root.replaceChildren();
+      embedRoot.replaceChildren();
     };
   }, [html, minHeight]);
 
   return <div ref={containerRef} className="rsvp-embed mt-10 w-full" />;
+}
+
+function fitFrame(frame: HTMLIFrameElement, height: number) {
+  frame.style.width = "100%";
+  frame.style.maxWidth = "100%";
+  frame.style.border = "0";
+  frame.style.display = "block";
+  frame.style.height = `${height}px`;
+  frame.setAttribute("height", String(height));
+  if (!frame.title) frame.title = "RSVP form";
 }
 
 function embedSrc(value: string): string | null {
