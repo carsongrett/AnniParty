@@ -49,11 +49,12 @@ export const event = {
    * Optional. A Google Maps link is created from venueAddress when that
    * value is no longer a placeholder. Set this to override that link.
    */
-  mapsUrl: "",
+  mapsUrl:
+    "https://www.google.com/maps/search/?api=1&query=2101%20Summer%20St%2C%20Houston%2C%20TX%2077007",
 
   dressCode: "To be announced.",
   menu:
-    "Food will be out for everyone to share. Expect shrimp campechana shooters, beef empanadas, elote mac and cheese balls, and pizza. The bar is open, with beer, wine, and spirits.",
+    "Bites and pizzas for dinner. The bar is open, with beer, wine, and spirits.",
 
   /**
    * Add, edit, or remove rows here.
