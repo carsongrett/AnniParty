@@ -173,6 +173,30 @@ export const event = {
       width: 875,
       height: 989,
     },
+    {
+      src: "photos/booth.jpg",
+      alt: "Sitting in a booth beside a brindle dog.",
+      width: 741,
+      height: 989,
+    },
+    {
+      src: "photos/hike.jpg",
+      alt: "Carson and Mason smiling on a green overlook above a coastal town.",
+      width: 1319,
+      height: 989,
+    },
+    {
+      src: "photos/porch.jpg",
+      alt: "Carson and Mason in blazers on a porch beside a green lawn.",
+      width: 741,
+      height: 989,
+    },
+    {
+      src: "photos/bridge.jpg",
+      alt: "Carson and Mason in scarves on a bridge over the water.",
+      width: 741,
+      height: 989,
+    },
   ] satisfies Photo[],
 
   faqs: [
