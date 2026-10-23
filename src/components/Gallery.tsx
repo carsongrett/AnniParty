@@ -2,12 +2,23 @@ import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { event, type Photo } from "../config/event";
 import { publicUrl } from "../lib/assets";
 
+const sections = [
+  { title: "Us", photos: event.us },
+  { title: "Our People", photos: event.people },
+];
+
 export function Gallery() {
-  const photos = event.gallery.filter((photo) => photo.src);
-  const [active, setActive] = useState<number | null>(null);
+  const groups = sections
+    .map((section) => ({
+      title: section.title,
+      photos: section.photos.filter((photo) => photo.src),
+    }))
+    .filter((section) => section.photos.length > 0);
+  const [active, setActive] = useState<{ group: number; index: number } | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
-  const photo = active === null ? null : photos[active];
+  const openPhotos = active === null ? [] : groups[active.group]?.photos ?? [];
+  const photo = active === null ? null : openPhotos[active.index];
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -23,35 +34,42 @@ export function Gallery() {
   }, [active]);
 
   function show(index: number) {
-    if (photos.length === 0) return;
-    const next = (index + photos.length) % photos.length;
-    setActive(next);
+    if (active === null || openPhotos.length === 0) return;
+    const next = (index + openPhotos.length) % openPhotos.length;
+    setActive({ group: active.group, index: next });
   }
 
   function onKeyDown(keyEvent: KeyboardEvent<HTMLDialogElement>) {
     if (active === null) return;
     if (keyEvent.key === "ArrowRight") {
       keyEvent.preventDefault();
-      show(active + 1);
+      show(active.index + 1);
     } else if (keyEvent.key === "ArrowLeft") {
       keyEvent.preventDefault();
-      show(active - 1);
+      show(active.index - 1);
     }
   }
 
   return (
     <section id="gallery" className="scroll-mt-32 border-t border-line bg-cream">
       <div className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-24">
-        <h2 className="font-serif text-4xl leading-tight text-ink md:text-5xl">
-          Gallery
-        </h2>
-        <ul className="mt-10 columns-2 gap-2 sm:gap-3 md:columns-3">
-          {photos.map((item, index) => (
-            <li key={item.src} className="mb-2 break-inside-avoid sm:mb-3">
-              <PhotoButton photo={item} onOpen={() => setActive(index)} />
-            </li>
-          ))}
-        </ul>
+        {groups.map((group, groupIndex) => (
+          <div key={group.title} className={groupIndex === 0 ? "" : "mt-16 md:mt-24"}>
+            <h2 className="font-serif text-4xl leading-tight text-ink md:text-5xl">
+              {group.title}
+            </h2>
+            <ul className="mt-10 columns-2 gap-2 sm:gap-3 md:columns-3">
+              {group.photos.map((item, index) => (
+                <li key={item.src} className="mb-2 break-inside-avoid sm:mb-3">
+                  <PhotoButton
+                    photo={item}
+                    onOpen={() => setActive({ group: groupIndex, index })}
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
 
       <dialog
@@ -92,20 +110,20 @@ export function Gallery() {
                 className="inline-flex min-h-12 items-center justify-center border border-ivory/50 px-3 text-sm tracking-[0.12em] uppercase"
                 onClick={(click) => {
                   click.stopPropagation();
-                  if (active !== null) show(active - 1);
+                  if (active !== null) show(active.index - 1);
                 }}
               >
                 Previous
               </button>
               <p className="text-sm text-ivory/80">
-                {active! + 1} of {photos.length}
+                {active!.index + 1} of {openPhotos.length}
               </p>
               <button
                 type="button"
                 className="inline-flex min-h-12 items-center justify-center border border-ivory/50 px-3 text-sm tracking-[0.12em] uppercase"
                 onClick={(click) => {
                   click.stopPropagation();
-                  if (active !== null) show(active + 1);
+                  if (active !== null) show(active.index + 1);
                 }}
               >
                 Next
