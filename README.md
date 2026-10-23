@@ -8,7 +8,7 @@ Read this section first in a new chat.
 
 - Family name on the page: **The Gretts** (no apostrophe). Couple: Carson and Mason.
 - The large line under the name is **First Anniversary** (`occasion` in `event.ts`). The header link stays "The Gretts".
-- Married January 10, 2026. The party is Saturday, January 16, 2027, 5:00–9:00 pm, America/Chicago. The January 16 date is the one that should stand out. "Married January 10, 2026" stays the quieter line.
+- Married January 10, 2026. The party is Saturday, January 16, 2027, 5:00–9:00 pm, America/Chicago. The January 16 date is the one that should stand out. "Married January 10, 2026" stays the quieter line in the header. The celebration note begins "We ran off and got married on January 10, 2026."
 - Location label is **Location**. Place: Tejas Brewery, Skyline Lounge, 2101 Summer St, Houston, TX 77007. The map search is the street address only.
 - Dress code: Cocktail attire.
 - Food and drink: bites and pizzas for dinner. Open bar with beer, wine, and spirits. Do not list the individual dishes, and do not say the bar is only 3 hours, until that is confirmed.

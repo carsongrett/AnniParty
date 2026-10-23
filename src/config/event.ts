@@ -36,7 +36,7 @@ export const event = {
   anniversaryDate: "January 10, 2026",
   tagline: "",
   welcomeMessage:
-    "We were married on January 10, 2026. Please join us at Tejas Brewery for a night of food, drinks, and music to celebrate our first year.",
+    "We ran off and got married on January 10, 2026. Please join us at Tejas Brewery for a night of food, drinks, and music to celebrate our first year.",
   closingMessage: "We can't wait to celebrate with you.",
 
   /** Shown in The Details. */
