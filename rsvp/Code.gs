@@ -1,16 +1,22 @@
 /**
  * Guest reply page for the Grett anniversary.
  *
- * Paste this whole file into the Apps Script editor attached to the
- * private guest spreadsheet. Deploy it as a web app that runs as you
- * and is open to anyone. The spreadsheet itself stays private.
+ * Leave SPREADSHEET_URL blank when this script is opened from
+ * Extensions → Apps Script inside the Google Sheet.
  *
- * The first tab needs these headers in row 1:
- * First Name, Last Name, Email, Response, Note, Responded At
+ * If that menu only shows a Drive error, create the project at
+ * script.google.com instead and paste the sheet link between the quotes.
+ * The link looks like https://docs.google.com/spreadsheets/d/abc123/edit
  *
+ * Deploy as a web app that runs as you and is open to anyone.
+ * The spreadsheet itself stays private.
+ *
+ * The first tab needs a First Name column and a Last Name column.
+ * Response, Note, and Responded At are added if they are missing.
  * Guests are matched on first and last name only. The page never
  * shows the rest of the list.
  */
+var SPREADSHEET_URL = "";
 
 var PAGE = `<!DOCTYPE html>
 <html lang="en">
@@ -337,8 +343,21 @@ function saveRsvp(firstName, lastName, attending, note) {
   return { status: "saved", attending: attending };
 }
 
+function guestSheet_() {
+  try {
+    var book = SPREADSHEET_URL
+      ? SpreadsheetApp.openByUrl(SPREADSHEET_URL)
+      : SpreadsheetApp.getActiveSpreadsheet();
+    if (!book) return null;
+    return book.getSheets()[0];
+  } catch (error) {
+    return null;
+  }
+}
+
 function findRows_(firstName, lastName) {
-  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
+  var sheet = guestSheet_();
+  if (!sheet) return { error: "setup", rows: [] };
   var width = Math.max(sheet.getLastColumn(), 1);
   var headers = sheet.getRange(1, 1, 1, width).getValues()[0];
   var firstCol = columnFor_(sheet, headers, ["first name", "firstname", "first"], "");
