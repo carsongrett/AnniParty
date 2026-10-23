@@ -172,9 +172,9 @@ export const event = {
       answer: "[DIETARY_INFORMATION]",
     },
     {
-      question: "Should I bring a gift?",
+      question: "Card box",
       answer:
-        "No gifts necessary! We're simply excited to celebrate with everyone. If you'd like to bring a card, we'd love that.",
+        "We love a handwritten card. In lieu of a signature book, we'll have a card box.",
     },
   ] as FaqItem[],
 };

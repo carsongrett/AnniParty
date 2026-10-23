@@ -1,4 +1,5 @@
 import { event } from "../config/event";
+import { httpUrl } from "../lib/text";
 
 const links = [
   { href: "#details", label: "The Details" },
@@ -7,6 +8,8 @@ const links = [
 ];
 
 export function Header() {
+  const pageUrl = httpUrl(event.rsvpPageUrl);
+
   return (
     <header className="sticky top-0 z-40 border-b border-line/80 bg-ivory/95 backdrop-blur-md">
       <a
@@ -35,8 +38,10 @@ export function Header() {
             ))}
           </nav>
           <a
-            href="#rsvp"
+            href={pageUrl ?? "#rsvp"}
             className="inline-flex min-h-11 items-center bg-ink px-4 text-sm tracking-[0.14em] text-ivory uppercase"
+            target={pageUrl ? "_blank" : undefined}
+            rel={pageUrl ? "noopener noreferrer" : undefined}
           >
             RSVP
           </a>

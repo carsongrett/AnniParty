@@ -1,8 +1,11 @@
 import { event } from "../config/event";
 import { publicUrl } from "../lib/assets";
 import { primaryButtonClass } from "../lib/styles";
+import { httpUrl } from "../lib/text";
 
 export function Hero() {
+  const pageUrl = httpUrl(event.rsvpPageUrl);
+
   return (
     <section id="top">
       <img
@@ -32,7 +35,12 @@ export function Hero() {
           {event.startTime} – {event.endTime}
         </p>
         <p className="mt-6 text-base text-muted">Married {event.anniversaryDate}</p>
-        <a href="#rsvp" className={`${primaryButtonClass} mt-8`}>
+        <a
+          href={pageUrl ?? "#rsvp"}
+          className={`${primaryButtonClass} mt-8`}
+          target={pageUrl ? "_blank" : undefined}
+          rel={pageUrl ? "noopener noreferrer" : undefined}
+        >
           RSVP
         </a>
       </div>

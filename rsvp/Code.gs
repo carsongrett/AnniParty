@@ -31,15 +31,18 @@ var PAGE = `<!DOCTYPE html>
       background: #f6f1e8;
       font-family: Georgia, "Palatino Linotype", Palatino, serif;
     }
-    body {
+    html, body {
       margin: 0;
+      width: 100%;
+    }
+    body {
       min-height: 100vh;
     }
     main {
       box-sizing: border-box;
-      max-width: 32rem;
-      margin: 0 auto;
-      padding: 3rem 1.25rem 4rem;
+      width: 100%;
+      margin: 0;
+      padding: 1.25rem 1rem 2rem;
     }
     h1 {
       margin: 0;
@@ -111,6 +114,8 @@ var PAGE = `<!DOCTYPE html>
       border-color: #2c2825;
     }
     button, .text-button {
+      box-sizing: border-box;
+      width: 100%;
       margin-top: 1.25rem;
       min-height: 3rem;
       border: 0;
@@ -129,6 +134,7 @@ var PAGE = `<!DOCTYPE html>
     }
     .text-button {
       display: inline-block;
+      width: auto;
       margin-top: 1.5rem;
       background: transparent;
       color: #6f675f;
