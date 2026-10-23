@@ -14,7 +14,8 @@
  * The first tab needs a First Name column and a Last Name column.
  * Response, Note, and Responded At are added if they are missing.
  * Guests are matched on first and last name only. The page never
- * shows the rest of the list.
+ * shows the rest of the list. Every name someone tries is added to
+ * a tab named Log, including names that are not on the list.
  */
 var SPREADSHEET_URL = "";
 
@@ -222,7 +223,7 @@ var PAGE = `<!DOCTYPE html>
             return;
           }
           if (result.status === "missing") {
-            error.textContent = "We couldn't find that name. Use the first and last name from your invitation.";
+            error.textContent = "We could not find your name.";
             return;
           }
           if (result.status === "many") {
@@ -301,8 +302,15 @@ function doGet() {
 function lookupGuest(firstName, lastName) {
   var found = findRows_(firstName, lastName);
   if (found.error) return { status: found.error };
-  if (found.rows.length === 0) return { status: "missing" };
-  if (found.rows.length > 1) return { status: "many" };
+  if (found.rows.length === 0) {
+    logAttempt_(firstName, lastName, "Not on the list");
+    return { status: "missing" };
+  }
+  if (found.rows.length > 1) {
+    logAttempt_(firstName, lastName, "More than one match");
+    return { status: "many" };
+  }
+  logAttempt_(firstName, lastName, "Invited");
 
   var row = found.rows[0];
   var response = String(found.sheet.getRange(row, found.cols.response).getValue() || "");
@@ -341,16 +349,43 @@ function saveRsvp(firstName, lastName, attending, note) {
   return { status: "saved", attending: attending };
 }
 
-function guestSheet_() {
+function guestBook_() {
   try {
     var book = SPREADSHEET_URL
       ? SpreadsheetApp.openByUrl(SPREADSHEET_URL)
       : SpreadsheetApp.getActiveSpreadsheet();
-    if (!book) return null;
-    return book.getSheets()[0];
+    return book || null;
   } catch (error) {
     return null;
   }
+}
+
+function guestSheet_() {
+  var book = guestBook_();
+  if (!book) return null;
+  var sheets = book.getSheets();
+  for (var i = 0; i < sheets.length; i++) {
+    if (String(sheets[i].getName()).trim().toLowerCase() === "log") continue;
+    return sheets[i];
+  }
+  return null;
+}
+
+function logAttempt_(firstName, lastName, result) {
+  var typedFirst = String(firstName || "").trim();
+  var typedLast = String(lastName || "").trim();
+  if (!typedFirst && !typedLast) return;
+  try {
+    var book = guestBook_();
+    if (!book) return;
+    var sheet = book.getSheetByName("Log");
+    if (!sheet) {
+      sheet = book.insertSheet("Log", book.getSheets().length);
+      sheet.getRange(1, 1, 1, 4).setValues([["When", "First Name", "Last Name", "Result"]]);
+      sheet.setFrozenRows(1);
+    }
+    sheet.appendRow([new Date(), typedFirst, typedLast, result]);
+  } catch (error) {}
 }
 
 function findRows_(firstName, lastName) {
