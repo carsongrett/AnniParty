@@ -12,7 +12,10 @@
  * The spreadsheet itself stays private.
  *
  * The first tab needs a First Name column and a Last Name column.
- * Response, Note, and Responded At are added if they are missing.
+ * Response, Note, Responded At, and Group are added if they are missing.
+ * Put the same word in Group for both people in a couple. Leave Group
+ * blank for a guest who is replying alone. Either person can enter
+ * their own name and answer yes or no for both.
  * Guests are matched on first and last name only. The page never
  * shows the rest of the list. Every name someone tries is added to
  * a tab named Log, including names that are not on the list.
@@ -152,6 +155,11 @@ var PAGE = `<!DOCTYPE html>
       min-height: 1.4rem;
       margin: 0.9rem 0 0;
     }
+    .person-name {
+      margin: 1.5rem 0 0.45rem;
+      font-size: 1.7rem;
+      line-height: 1.1;
+    }
     .quiet {
       color: #6f675f;
     }
@@ -175,12 +183,10 @@ var PAGE = `<!DOCTYPE html>
 
     <form id="reply" hidden>
       <p id="hello" class="occasion"></p>
+      <p id="together" class="lede" hidden></p>
       <p id="already" class="quiet" hidden>You already replied. You can change it.</p>
       <p class="lede">Will you be there?</p>
-      <div class="choices">
-        <label><input id="yes" type="radio" name="attending" value="Yes" required><span>Yes</span></label>
-        <label><input id="no" type="radio" name="attending" value="No"><span>No</span></label>
-      </div>
+      <div id="people"></div>
       <label for="note">Anything we should know? Optional.</label>
       <textarea id="note" name="note" maxlength="500"></textarea>
       <p id="reply-error" class="error" role="alert"></p>
@@ -201,6 +207,7 @@ var PAGE = `<!DOCTYPE html>
   </main>
   <script>
     var savedName = { first: "", last: "" };
+    var party = [];
 
     function show(id) {
       ["lookup", "reply", "done", "problem"].forEach(function (name) {
@@ -237,10 +244,17 @@ var PAGE = `<!DOCTYPE html>
             return;
           }
           savedName = { first: first, last: last };
+          party = result.people || [];
           document.getElementById("hello").textContent = "Hi " + result.firstName + ".";
-          document.getElementById("already").hidden = result.response !== "Yes" && result.response !== "No";
-          document.getElementById("yes").checked = result.response === "Yes";
-          document.getElementById("no").checked = result.response === "No";
+          var together = document.getElementById("together");
+          together.hidden = party.length < 2;
+          together.textContent = party.length === 2
+            ? "You can reply for both of you."
+            : "You can reply for your group.";
+          document.getElementById("already").hidden = !party.some(function (person) {
+            return person.response === "Yes" || person.response === "No";
+          });
+          renderParty(party);
           document.getElementById("note").value = result.note || "";
           document.getElementById("reply-error").textContent = "";
           show("reply");
@@ -256,11 +270,19 @@ var PAGE = `<!DOCTYPE html>
       event.preventDefault();
       var button = document.getElementById("send");
       var error = document.getElementById("reply-error");
-      var choice = document.querySelector("input[name=attending]:checked");
       error.textContent = "";
-      if (!choice) {
-        error.textContent = "Choose yes or no.";
-        return;
+      var replies = [];
+      for (var i = 0; i < party.length; i++) {
+        var choice = document.querySelector("input[name=attending-" + i + "]:checked");
+        if (!choice) {
+          error.textContent = "Choose yes or no for each person.";
+          return;
+        }
+        replies.push({
+          firstName: party[i].firstName,
+          lastName: party[i].lastName,
+          attending: choice.value
+        });
       }
       busy(button, true, "Send reply");
       google.script.run
@@ -274,17 +296,42 @@ var PAGE = `<!DOCTYPE html>
             error.textContent = "Something went wrong. Try again in a minute.";
             return;
           }
-          document.getElementById("thanks").textContent = result.attending === "Yes"
-            ? "We have you down as coming."
-            : "We have you down as not coming.";
+          document.getElementById("thanks").textContent = result.summary;
           show("done");
         })
         .withFailureHandler(function () {
           busy(button, false, "Send reply");
           error.textContent = "Something went wrong. Try again in a minute.";
         })
-        .saveRsvp(savedName.first, savedName.last, choice.value, document.getElementById("note").value);
+        .saveRsvp(savedName.first, savedName.last, replies, document.getElementById("note").value);
     };
+
+    function renderParty(people) {
+      var root = document.getElementById("people");
+      root.innerHTML = "";
+      people.forEach(function (person, index) {
+        var name = document.createElement("p");
+        name.className = "person-name";
+        name.textContent = person.firstName + " " + person.lastName;
+        var choices = document.createElement("div");
+        choices.className = "choices";
+        ["Yes", "No"].forEach(function (value) {
+          var label = document.createElement("label");
+          var input = document.createElement("input");
+          input.type = "radio";
+          input.name = "attending-" + index;
+          input.value = value;
+          input.checked = person.response === value;
+          var span = document.createElement("span");
+          span.textContent = value;
+          label.appendChild(input);
+          label.appendChild(span);
+          choices.appendChild(label);
+        });
+        root.appendChild(name);
+        root.appendChild(choices);
+      });
+    }
 
     document.getElementById("back").onclick = function () {
       show("lookup");
@@ -318,19 +365,19 @@ function lookupGuest(firstName, lastName) {
   }
   logAttempt_(firstName, lastName, "Invited");
 
-  var row = found.rows[0];
-  var response = String(found.sheet.getRange(row, found.cols.response).getValue() || "");
+  var people = partyRowNumbers_(found, found.rows[0]).map(function (row) {
+    return personAt_(found, row);
+  });
+  var matched = personAt_(found, found.rows[0]);
   return {
     status: "found",
-    firstName: String(found.sheet.getRange(row, found.cols.first).getDisplayValue() || "").trim(),
-    response: response === "Yes" || response === "No" ? response : "",
-    note: String(found.sheet.getRange(row, found.cols.note).getDisplayValue() || "").slice(0, 500)
+    firstName: matched.firstName,
+    people: people,
+    note: noteAt_(found, found.rows[0])
   };
 }
 
-function saveRsvp(firstName, lastName, attending, note) {
-  if (attending !== "Yes" && attending !== "No") return { status: "bad" };
-
+function saveRsvp(firstName, lastName, replies, note) {
   var found = findRows_(firstName, lastName);
   if (found.error) return { status: found.error };
   if (found.rows.length === 0) return { status: "missing" };
@@ -344,15 +391,80 @@ function saveRsvp(firstName, lastName, attending, note) {
     if (found.rows.length !== 1) {
       return { status: found.rows.length === 0 ? "missing" : "many" };
     }
-    var row = found.rows[0];
-    found.sheet.getRange(row, found.cols.response).setValue(attending);
-    found.sheet.getRange(row, found.cols.note).setValue(plainText_(note));
-    found.sheet.getRange(row, found.cols.when).setValue(new Date());
+    var plan = replyPlan_(found, replies);
+    if (!plan) return { status: "bad" };
+    var cleanNote = plainText_(note);
+    var when = new Date();
+    var coming = 0;
+    plan.forEach(function (item) {
+      found.sheet.getRange(item.row, found.cols.response).setValue(item.attending);
+      found.sheet.getRange(item.row, found.cols.note).setValue(cleanNote);
+      found.sheet.getRange(item.row, found.cols.when).setValue(when);
+      if (item.attending === "Yes") coming++;
+    });
+    return { status: "saved", summary: summaryFor_(plan.length, coming) };
   } finally {
     lock.releaseLock();
   }
+}
 
-  return { status: "saved", attending: attending };
+function personAt_(found, row) {
+  var line = found.values[row - 2] || [];
+  var response = String(line[found.cols.response - 1] || "");
+  return {
+    firstName: String(line[found.cols.first - 1] || "").trim(),
+    lastName: String(line[found.cols.last - 1] || "").trim(),
+    response: response === "Yes" || response === "No" ? response : ""
+  };
+}
+
+function noteAt_(found, row) {
+  var line = found.values[row - 2] || [];
+  return String(line[found.cols.note - 1] || "").trim().slice(0, 500);
+}
+
+function partyRowNumbers_(found, matchedRow) {
+  if (!found.cols.group || !found.values) return [matchedRow];
+  var matched = found.values[matchedRow - 2];
+  if (!matched) return [matchedRow];
+  var groupKey = nameKey_(matched[found.cols.group - 1]);
+  if (!groupKey) return [matchedRow];
+  var rows = [];
+  for (var i = 0; i < found.values.length; i++) {
+    if (nameKey_(found.values[i][found.cols.group - 1]) === groupKey) rows.push(i + 2);
+  }
+  return rows.length ? rows : [matchedRow];
+}
+
+function replyPlan_(found, replies) {
+  if (!replies || !replies.length) return null;
+  var rows = partyRowNumbers_(found, found.rows[0]);
+  var byName = {};
+  rows.forEach(function (row) {
+    var person = personAt_(found, row);
+    byName[nameKey_(person.firstName) + "|" + nameKey_(person.lastName)] = row;
+  });
+  if (replies.length !== rows.length) return null;
+  var plan = [];
+  var seen = {};
+  for (var i = 0; i < replies.length; i++) {
+    var reply = replies[i] || {};
+    if (reply.attending !== "Yes" && reply.attending !== "No") return null;
+    var key = nameKey_(reply.firstName) + "|" + nameKey_(reply.lastName);
+    if (!byName[key] || seen[key]) return null;
+    seen[key] = true;
+    plan.push({ row: byName[key], attending: reply.attending });
+  }
+  return Object.keys(seen).length === rows.length ? plan : null;
+}
+
+function summaryFor_(count, coming) {
+  if (count <= 1) {
+    return coming ? "We have you down as coming." : "We have you down as not coming.";
+  }
+  if (count === 2 && coming === 2) return "We have you both down as coming.";
+  if (count === 2 && coming === 0) return "We have you both down as not coming.";
+  return "We have your replies.";
 }
 
 function guestBook_() {
@@ -409,23 +521,27 @@ function findRows_(firstName, lastName) {
     last: lastCol,
     response: columnFor_(sheet, headers, ["response", "rsvp", "attending"], "Response"),
     note: columnFor_(sheet, headers, ["note", "notes", "message"], "Note"),
-    when: columnFor_(sheet, headers, ["responded at", "replied at", "timestamp"], "Responded At")
+    when: columnFor_(sheet, headers, ["responded at", "replied at", "timestamp"], "Responded At"),
+    group: columnFor_(sheet, headers, ["group", "party", "couple", "household"], "Group")
   };
 
   var firstKey = nameKey_(firstName);
   var lastKey = nameKey_(lastName);
   var rows = [];
+  var values = [];
   var lastRow = sheet.getLastRow();
-  if (firstKey && lastKey && lastRow >= 2) {
-    var values = sheet.getRange(2, 1, lastRow - 1, sheet.getLastColumn()).getValues();
-    for (var i = 0; i < values.length; i++) {
-      if (nameKey_(values[i][cols.first - 1]) === firstKey && nameKey_(values[i][cols.last - 1]) === lastKey) {
-        rows.push(i + 2);
+  if (lastRow >= 2) {
+    values = sheet.getRange(2, 1, lastRow - 1, sheet.getLastColumn()).getValues();
+    if (firstKey && lastKey) {
+      for (var i = 0; i < values.length; i++) {
+        if (nameKey_(values[i][cols.first - 1]) === firstKey && nameKey_(values[i][cols.last - 1]) === lastKey) {
+          rows.push(i + 2);
+        }
       }
     }
   }
 
-  return { error: "", rows: rows, sheet: sheet, cols: cols };
+  return { error: "", rows: rows, sheet: sheet, cols: cols, values: values };
 }
 
 function columnFor_(sheet, headers, names, createLabel) {
