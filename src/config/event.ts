@@ -161,6 +161,12 @@ export const event = {
       width: 1319,
       height: 989,
     },
+    {
+      src: "photos/sidewalk.jpg",
+      alt: "Standing on a sidewalk in a purple shirt, black shorts, and a cap.",
+      width: 741,
+      height: 989,
+    },
   ] satisfies Photo[],
 
   faqs: [
