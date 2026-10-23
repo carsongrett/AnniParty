@@ -45,8 +45,10 @@ export function EventDetails() {
       label: "Time",
       value: (
         <>
-          {startText} – {endText}
-          <span className="mt-1 block text-base text-muted">{zoneText}</span>
+          {startText} – {endText} {zoneText}
+          <span className="mt-1 block text-base text-muted">
+            insert schedule/come and go/timeline once figured out
+          </span>
         </>
       ),
     },
