@@ -64,7 +64,7 @@ Both lists are in `src/config/event.ts`.
 
 Guest names stay in a private Google Sheet. This repo never stores the list.
 
-The first tab uses these headers: First Name, Last Name, Email, Response, Note, Responded At. The script in `rsvp/Code.gs` is pasted into Extensions → Apps Script on that sheet and deployed as a web app that runs as the sheet owner and is open to anyone. Matching is the full first and last name, ignoring case and extra spaces. A name that is not on the list cannot send a reply. The page does not show other guests.
+The first tab needs `First Name` and `Last Name` columns. `Response`, `Note`, and `Responded At` are added if they are missing. The script in `rsvp/Code.gs` is pasted into Extensions → Apps Script on that sheet. If that menu only opens a Drive error, paste the sheet link into `SPREADSHEET_URL` at the top of the script and create the project at script.google.com instead. Deploy it as a web app that runs as the sheet owner and is open to anyone. Matching is the full first and last name, ignoring case and extra spaces. A name that is not on the list cannot send a reply. The page does not show other guests.
 
 Put the deployed web app URL in `rsvpPageUrl`. Until that is set, the site shows "RSVP details coming soon."
 
