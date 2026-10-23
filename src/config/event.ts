@@ -84,7 +84,7 @@ export const event = {
    * The sheet stays private. This URL does not include the guest list.
    */
   rsvpPageUrl:
-    "https://script.google.com/macros/s/AKfycbwEl261ug5BSnPiNz6nkq3AaKjZulEfQ1bNHZKhh2r4TNeYYBfVj-6a_oa5aIEY02bU/exec",
+    "https://script.google.com/macros/s/AKfycbytGobONpFUE9li2pQ9sVv6CIx-gWU3i6fk9EAsbuAA7lQY863I8iS_2rmRZFjIwEQb/exec",
 
   /**
    * Unused. RSVPify was dropped. Leave these empty.
