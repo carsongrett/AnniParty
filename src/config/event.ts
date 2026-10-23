@@ -198,12 +198,6 @@ export const event = {
       height: 989,
     },
     {
-      src: "photos/sidewalk.jpg",
-      alt: "Standing on a sidewalk in a purple shirt, black shorts, and a cap.",
-      width: 741,
-      height: 989,
-    },
-    {
       src: "photos/dog.jpg",
       alt: "Smiling while holding a brindle dog with a bright green collar.",
       width: 875,
