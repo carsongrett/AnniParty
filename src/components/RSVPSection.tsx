@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import { event } from "../config/event";
-import { primaryButtonClass } from "../lib/styles";
 import { httpUrl } from "../lib/text";
 
 export function RSVPSection() {
@@ -11,25 +10,16 @@ export function RSVPSection() {
 
   return (
     <section id="rsvp" className="scroll-mt-32 border-t border-line bg-cream">
-      <div className="mx-auto max-w-3xl px-5 py-16 md:px-8 md:py-24">
-        <h2 className="text-center font-serif text-4xl leading-tight text-ink md:text-5xl">
-          RSVP
-        </h2>
-        <p className="mx-auto mt-4 max-w-md text-center leading-relaxed text-ink/80">
-          Let us know if you can join. You'll enter your name from the guest list.
-        </p>
-
+      <div className="mx-auto max-w-3xl px-5 py-14 text-center md:px-8 md:py-20">
         {pageUrl ? (
-          <p className="mt-10 text-center">
-            <a
-              href={pageUrl}
-              className={primaryButtonClass}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              RSVP
-            </a>
-          </p>
+          <a
+            href={pageUrl}
+            className="inline-flex min-h-24 w-full items-center justify-center bg-ink px-10 font-serif text-5xl text-ivory sm:w-auto sm:min-w-80 sm:px-20 md:min-h-28 md:text-6xl"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            RSVP
+          </a>
         ) : embedCode ? (
           <EmbedCode html={embedCode} minHeight={event.rsvpifyFrameHeight} />
         ) : eventUrl ? (

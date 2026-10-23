@@ -22,9 +22,9 @@ export default function App() {
         <Hero />
         <Celebration />
         <EventDetails />
+        <RSVPSection />
         <Gallery />
         <FAQ />
-        <RSVPSection />
       </main>
     </div>
   );
