@@ -23,7 +23,7 @@ var PAGE = `<!DOCTYPE html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>The Gretts · RSVP</title>
+  <title>Find your invitation</title>
   <style>
     :root {
       color: #2c2825;
@@ -44,7 +44,7 @@ var PAGE = `<!DOCTYPE html>
       margin: 0;
       font-weight: 400;
       font-size: 3.25rem;
-      line-height: 0.95;
+      line-height: 1.05;
     }
     .occasion {
       margin: 0.75rem 0 0;
@@ -155,9 +155,7 @@ var PAGE = `<!DOCTYPE html>
 </head>
 <body>
   <main>
-    <h1>The Gretts</h1>
-    <p class="occasion">First Anniversary</p>
-    <p class="lede">Enter the first and last name from your invitation.</p>
+    <h1>Find your invitation.</h1>
 
     <form id="lookup">
       <label for="first">First name</label>
@@ -296,7 +294,7 @@ var PAGE = `<!DOCTYPE html>
 
 function doGet() {
   return HtmlService.createHtmlOutput(PAGE)
-    .setTitle("The Gretts · RSVP")
+    .setTitle("Find your invitation")
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }
 
