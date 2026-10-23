@@ -118,7 +118,7 @@ export const event = {
     height: 720,
   } satisfies Photo,
 
-  us: [
+  gallery: [
     {
       src: "photos/tuxedos.jpg",
       alt: "Carson and Mason in black tuxedos with pink boutonnieres.",
@@ -149,20 +149,17 @@ export const event = {
       width: 741,
       height: 989,
     },
-  ] satisfies Photo[],
-
-  people: [
     {
-      src: "photos/patio.jpg",
-      alt: "Carson and Mason with friends on a brick patio.",
-      width: 2000,
-      height: 1351,
+      src: "photos/roof.jpg",
+      alt: "Carson and Mason taking a selfie under a roof, both giving a thumbs up.",
+      width: 741,
+      height: 989,
     },
     {
-      src: "photos/restaurant.jpg",
-      alt: "Carson and Mason with friends around a table.",
-      width: 2000,
-      height: 1500,
+      src: "photos/water.jpg",
+      alt: "Carson and Mason smiling together beside a waterway at dusk.",
+      width: 1319,
+      height: 989,
     },
   ] satisfies Photo[],
 
