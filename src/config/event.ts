@@ -172,9 +172,9 @@ export const event = {
       answer: "[DIETARY_INFORMATION]",
     },
     {
-      question: "Card box",
+      question: "Should I bring a gift?",
       answer:
-        "We love a handwritten card. In lieu of a signature book, we'll have a card box.",
+        "No need for a gift. We do love a handwritten card, though. In lieu of a guest book, we'll have a card box for any notes or well wishes you'd like to share.",
     },
   ] as FaqItem[],
 };
