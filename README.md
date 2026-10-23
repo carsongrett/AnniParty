@@ -15,7 +15,7 @@ Read this section first in a new chat.
 - The evening schedule is hidden (`schedule: []`).
 - Parking on the page: lot with security. Valet is still unconfirmed. Rideshare is encouraged.
 - Calendar title is exactly `Grett's Anniversary Party`, with no description.
-- RSVPify is gone. Replies will live in a private Google Sheet. Guests type a first and last name, and only a matching row can answer yes or no. The page script is `rsvp/Code.gs`. Until `rsvpPageUrl` in `event.ts` has the deployed web app link, the site says the reply page is coming soon. Do not put the guest list in this repo.
+- RSVPify is gone. Replies live in the private Grett RSVP Google Sheet. Guests type a first and last name, and only a matching row can answer yes or no. The page script is `rsvp/Code.gs`. `rsvpPageUrl` is the deployed web app. Do not put the guest list in this repo.
 - FAQ on the page: parking, rideshare, dietary needs (still a placeholder), gifts. Children, plus-ones, and the RSVP deadline are not on the page. The deadline text still lives in `rsvpDeadline` and is aiming for December 15, not final.
 - Photos: `photos/hero.jpg` is the tighter dinner crop with no one else in the background. `photos/beach.jpg` sits beside the welcome note. The gallery is a collage, and guests scroll it themselves. Tapping a photo opens it large.
 - The brochure phone number and the catering guest count of 100 must not be published.
@@ -66,7 +66,7 @@ Guest names stay in a private Google Sheet. This repo never stores the list.
 
 The first tab needs `First Name` and `Last Name` columns. `Response`, `Note`, and `Responded At` are added if they are missing. The script in `rsvp/Code.gs` is pasted into Extensions → Apps Script on that sheet. If that menu only opens a Drive error, paste the sheet link into `SPREADSHEET_URL` at the top of the script and create the project at script.google.com instead. Deploy it as a web app that runs as the sheet owner and is open to anyone. Matching is the full first and last name, ignoring case and extra spaces. A name that is not on the list cannot send a reply. The page does not show other guests.
 
-Put the deployed web app URL in `rsvpPageUrl`. Until that is set, the site shows "RSVP details coming soon."
+The deployed web app URL belongs in `rsvpPageUrl`. The invitation links to it from the RSVP section.
 
 ## Deploy to GitHub Pages
 

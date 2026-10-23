@@ -80,10 +80,11 @@ export const event = {
   rsvpDeadline,
 
   /**
-   * The Google reply page. Leave "" until the Apps Script web app is deployed.
-   * Example: "https://script.google.com/macros/s/.../exec"
+   * The Google reply page. Guests open this, enter a name, and answer yes or no.
+   * The sheet stays private. This URL does not include the guest list.
    */
-  rsvpPageUrl: "",
+  rsvpPageUrl:
+    "https://script.google.com/macros/s/AKfycbwEl261ug5BSnPiNz6nkq3AaKjZulEfQ1bNHZKhh2r4TNeYYBfVj-6a_oa5aIEY02bU/exec",
 
   /**
    * Unused. RSVPify was dropped. Leave these empty.
