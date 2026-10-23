@@ -126,8 +126,26 @@ export const event = {
       height: 2000,
     },
     {
+      src: "photos/rings.jpg",
+      alt: "Two hands with wedding rings held over a snowy park.",
+      width: 741,
+      height: 989,
+    },
+    {
+      src: "photos/ceremony.jpg",
+      alt: "Carson and Mason in black tuxedos on a lawn by the water.",
+      width: 741,
+      height: 989,
+    },
+    {
       src: "photos/lawn.jpg",
       alt: "Carson and Mason standing together on a lawn in suits.",
+      width: 741,
+      height: 989,
+    },
+    {
+      src: "photos/wine.jpg",
+      alt: "Carson and Mason in blazers holding glasses of wine outdoors.",
       width: 741,
       height: 989,
     },
