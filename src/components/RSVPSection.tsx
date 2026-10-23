@@ -1,8 +1,10 @@
 import { useEffect, useRef } from "react";
 import { event } from "../config/event";
+import { primaryButtonClass } from "../lib/styles";
 import { httpUrl } from "../lib/text";
 
 export function RSVPSection() {
+  const pageUrl = httpUrl(event.rsvpPageUrl);
   const embedCode = event.rsvpifyEmbedCode.trim();
   const eventUrl = embedSrc(event.rsvpifyEventUrl);
   const fallback = httpUrl(event.rsvpifyUrl);
@@ -14,10 +16,21 @@ export function RSVPSection() {
           RSVP
         </h2>
         <p className="mx-auto mt-4 max-w-md text-center leading-relaxed text-ink/80">
-          Let us know if you can join. Replies are collected by RSVPify.
+          Let us know if you can join. You'll enter your name from the guest list.
         </p>
 
-        {embedCode ? (
+        {pageUrl ? (
+          <p className="mt-10 text-center">
+            <a
+              href={pageUrl}
+              className={primaryButtonClass}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              RSVP
+            </a>
+          </p>
+        ) : embedCode ? (
           <EmbedCode html={embedCode} minHeight={event.rsvpifyFrameHeight} />
         ) : eventUrl ? (
           <iframe
@@ -31,12 +44,12 @@ export function RSVPSection() {
           <div className="mt-10 border border-line bg-paper px-6 py-14 text-center">
             <p className="font-serif text-3xl text-ink">RSVP details coming soon</p>
             <p className="mx-auto mt-3 max-w-sm text-sm leading-relaxed text-muted">
-              The reply form will appear here.
+              The reply page is almost ready.
             </p>
           </div>
         )}
 
-        {fallback ? (
+        {!pageUrl && fallback ? (
           <p className="mt-4 text-center">
             <a
               href={fallback}

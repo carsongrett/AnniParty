@@ -80,18 +80,17 @@ export const event = {
   rsvpDeadline,
 
   /**
-   * Paste the snippet from RSVPify: Share & Invite → Embed your Form.
-   * Leave "" until you have it.
+   * The Google reply page. Leave "" until the Apps Script web app is deployed.
+   * Example: "https://script.google.com/macros/s/.../exec"
    */
-  rsvpifyEmbedCode:
-    '<script type="text/javascript" src="https://thegretts.rsvpify.com/embed"></script>',
+  rsvpPageUrl: "",
+
   /**
-   * Optional event URL, used only when rsvpifyEmbedCode is empty.
-   * Example: "https://your-event.rsvpify.com"
+   * Unused. RSVPify was dropped. Leave these empty.
    */
+  rsvpifyEmbedCode: "",
   rsvpifyEventUrl: "",
-  /** Optional direct link shown under the form as a fallback. */
-  rsvpifyUrl: "https://thegretts.rsvpify.com",
+  rsvpifyUrl: "",
   /** Height of the embedded form. Guests can scroll inside it. */
   rsvpifyFrameHeight: 480,
 

@@ -15,7 +15,7 @@ Read this section first in a new chat.
 - The evening schedule is hidden (`schedule: []`).
 - Parking on the page: lot with security. Valet is still unconfirmed. Rideshare is encouraged.
 - Calendar title is exactly `Grett's Anniversary Party`, with no description.
-- RSVPify embed is `https://thegretts.rsvpify.com/embed`. The frame is capped at 480px in `src/index.css`. A small "Open in browser" link sits under it. Do not resize that frame by rewriting the embed script.
+- RSVPify is gone. Replies will live in a private Google Sheet. Guests type a first and last name, and only a matching row can answer yes or no. The page script is `rsvp/Code.gs`. Until `rsvpPageUrl` in `event.ts` has the deployed web app link, the site says the reply page is coming soon. Do not put the guest list in this repo.
 - FAQ on the page: parking, rideshare, dietary needs (still a placeholder), gifts. Children, plus-ones, and the RSVP deadline are not on the page. The deadline text still lives in `rsvpDeadline` and is aiming for December 15, not final.
 - Photos: `photos/hero.jpg` is the tighter dinner crop with no one else in the background. `photos/beach.jpg` sits beside the welcome note. The gallery is a collage, and guests scroll it themselves. Tapping a photo opens it large.
 - The brochure phone number and the catering guest count of 100 must not be published.
@@ -60,15 +60,13 @@ Both lists are in `src/config/event.ts`.
 - Change, add, or remove objects in `schedule`.
 - Set `schedule` to `[]` to hide the timeline.
 
-## Add the RSVPify form
+## RSVP
 
-Guest replies stay in RSVPify. This site does not store them.
+Guest names stay in a private Google Sheet. This repo never stores the list.
 
-Paste the embed snippet into `rsvpifyEmbedCode`. Set `rsvpifyUrl` for the "Open in browser" link. If you only have the event URL, put it in `rsvpifyEventUrl` and leave `rsvpifyEmbedCode` empty.
+The first tab uses these headers: First Name, Last Name, Email, Response, Note, Responded At. The script in `rsvp/Code.gs` is pasted into Extensions → Apps Script on that sheet and deployed as a web app that runs as the sheet owner and is open to anyone. Matching is the full first and last name, ignoring case and extra spaces. A name that is not on the list cannot send a reply. The page does not show other guests.
 
-The visible frame height is set on `.rsvp-embed iframe` in `src/index.css`. Change that number to make the box taller or shorter. Leave the script that inserts the embed alone.
-
-Until an embed or event URL is set, the section shows "RSVP details coming soon."
+Put the deployed web app URL in `rsvpPageUrl`. Until that is set, the site shows "RSVP details coming soon."
 
 ## Deploy to GitHub Pages
 
