@@ -155,6 +155,12 @@ export const event = {
       width: 1333,
       height: 2000,
     },
+    {
+      src: "photos/lawn.jpg",
+      alt: "Carson and Mason standing together on a lawn in suits.",
+      width: 741,
+      height: 989,
+    },
   ] satisfies Photo[],
 
   faqs: [
