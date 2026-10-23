@@ -167,6 +167,12 @@ export const event = {
       width: 741,
       height: 989,
     },
+    {
+      src: "photos/dog.jpg",
+      alt: "Smiling while holding a brindle dog with a bright green collar.",
+      width: 875,
+      height: 989,
+    },
   ] satisfies Photo[],
 
   faqs: [
