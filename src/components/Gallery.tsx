@@ -45,9 +45,9 @@ export function Gallery() {
         <h2 className="font-serif text-4xl leading-tight text-ink md:text-5xl">
           Gallery
         </h2>
-        <ul className="mt-10 columns-2 gap-2 sm:gap-3 md:columns-3">
+        <ul className="mt-10 grid grid-cols-2 items-start gap-2 sm:gap-3 md:grid-cols-3">
           {photos.map((item, index) => (
-            <li key={item.src} className="mb-2 break-inside-avoid sm:mb-3">
+            <li key={item.src}>
               <PhotoButton photo={item} onOpen={() => setActive(index)} />
             </li>
           ))}
