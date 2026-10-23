@@ -29,6 +29,8 @@ const rsvpDeadline =
 
 export const event = {
   name: "The Gretts",
+  /** Large line under the family name. Leave "" to hide it. */
+  occasion: "First Anniversary",
   coupleNames: "Carson & Mason",
   date: "Saturday, January 16, 2027",
   anniversaryDate: "January 10, 2026",

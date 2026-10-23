@@ -1,6 +1,25 @@
 # Anniversary celebration
 
-A single-page invitation for a first anniversary. Event copy lives in one file. There is no guest database and no login.
+A single-page invitation. Guest copy lives in `src/config/event.ts`. There is no guest database and no login. The live site is https://carsongrett.github.io/AnniParty/ and updates when `main` is pushed and the GitHub Actions deploy succeeds.
+
+## Where things stand
+
+Read this section first in a new chat.
+
+- Family name on the page: **The Gretts** (no apostrophe). Couple: Carson and Mason.
+- The large line under the name is **First Anniversary** (`occasion` in `event.ts`). The header link stays "The Gretts".
+- Married January 10, 2026. The party is Saturday, January 16, 2027, 5:00–9:00 pm, America/Chicago. The January 16 date is the one that should stand out. "Married January 10, 2026" stays the quieter line.
+- Location label is **Location**. Place: Tejas Brewery, Skyline Lounge, 2101 Summer St, Houston, TX 77007. The map search is the street address only.
+- Dress code: Cocktail attire.
+- Food and drink: bites and pizzas for dinner. Open bar with beer, wine, and spirits. Do not list the individual dishes, and do not say the bar is only 3 hours, until that is confirmed.
+- The evening schedule is hidden (`schedule: []`).
+- Parking on the page: lot with security. Valet is still unconfirmed. Rideshare is encouraged.
+- Calendar title is exactly `Grett's Anniversary Party`, with no description.
+- RSVPify embed is `https://thegretts.rsvpify.com/embed`. The frame is capped at 480px in `src/index.css`. A small "Open in browser" link sits under it. Do not resize that frame by rewriting the embed script.
+- FAQ on the page: parking, rideshare, dietary needs (still a placeholder), gifts. Children, plus-ones, and the RSVP deadline are not on the page. The deadline text still lives in `rsvpDeadline` and is aiming for December 15, not final.
+- Photos: `photos/hero.jpg` is the tighter dinner crop with no one else in the background. `photos/beach.jpg` sits beside the welcome note. The gallery is a collage, and guests scroll it themselves. Tapping a photo opens it large.
+- The brochure phone number and the catering guest count of 100 must not be published.
+- Still open: valet, whether the open bar covers all four hours, sound equipment, children, plus-ones, a final RSVP date, and whether the evening needs a schedule.
 
 ## Run locally
 
@@ -13,54 +32,47 @@ Open the URL Vite prints. `npm run build` then `npm run preview` serves the prod
 
 ## Update event details
 
-Edit `src/config/event.ts`. Replace each `[PLACEHOLDER]` with the real text.
+Edit `src/config/event.ts`. Replace each `[PLACEHOLDER]` with the real text. Leave an optional string as `""` to hide it.
 
 Calendar buttons stay off until all three of these are set:
 
-- `calendarStart` and `calendarEnd`, as local times without a zone suffix, such as `2027-06-12T17:00:00`
-- `timeZone`, an IANA name such as `America/Los_Angeles`
+- `calendarStart` and `calendarEnd`, as local times without a zone suffix, such as `2027-01-16T17:00:00`
+- `timeZone`, an IANA name such as `America/Chicago`
 
-The date, start time, end time, and time zone shown on the page use the matching label fields. If a label is still a placeholder and the calendar fields are valid, the page formats the calendar time instead.
-
-A Google Maps link appears when `venueAddress` is no longer a placeholder. Set `mapsUrl` only if you want a specific link.
+The date, start time, end time, and time zone shown on the page use the matching label fields.
 
 ## Replace photographs
 
 Add image files under `public/photos/`, then update `src`, `alt`, `width`, and `height` in `src/config/event.ts`.
 
-- `hero` is the opening photograph
-- `celebrationImage` sits beside the welcome note
-- `gallery` is the grid (about five photographs)
-- `footerImage` is the closing photograph
+- `hero` is the opening photograph. `position` keeps faces in the wide crop, for example `"center 32%"`.
+- `celebrationImage` sits beside the welcome note.
+- `gallery` is the collage. Each photo keeps its own shape.
+- `footerImage` is unused. Leave `src` empty.
 
-Use empty `src` to hide the celebration or footer photograph. Use empty `alt` only when a photograph is decorative. The hero image loads immediately. Gallery images load as they approach the screen.
+Use empty `src` to hide the celebration photograph. The hero image loads immediately. Gallery images load as they approach the screen.
 
 ## Edit the FAQs and schedule
 
 Both lists are in `src/config/event.ts`.
 
 - Change, add, or remove objects in `faqs`.
-- The RSVP deadline question uses `rsvpDeadline`, so edit that value once.
 - Change, add, or remove objects in `schedule`.
-- Set `schedule` to `[]` to remove the timeline.
+- Set `schedule` to `[]` to hide the timeline.
 
 ## Add the RSVPify form
 
 Guest replies stay in RSVPify. This site does not store them.
 
-1. In RSVPify, open the event, then **Share & Invite → Embed your Form**, and copy the snippet.
-2. Paste it into `rsvpifyEmbedCode`.
-3. Optionally set `rsvpifyUrl` to the direct form link. It appears under the embed as a fallback.
-4. If you only have the event URL, put it in `rsvpifyEventUrl` and leave `rsvpifyEmbedCode` empty. The page embeds it with RSVPify’s `embed=1` and `oEmbed=1` parameters.
-5. If the form is cut off on a phone, increase `rsvpifyFrameHeight`.
+Paste the embed snippet into `rsvpifyEmbedCode`. Set `rsvpifyUrl` for the "Open in browser" link. If you only have the event URL, put it in `rsvpifyEventUrl` and leave `rsvpifyEmbedCode` empty.
 
-Until one of those values is set, the section shows “RSVP details coming soon.”
+The visible frame height is set on `.rsvp-embed iframe` in `src/index.css`. Change that number to make the box taller or shorter. Leave the script that inserts the embed alone.
+
+Until an embed or event URL is set, the section shows "RSVP details coming soon."
 
 ## Deploy to GitHub Pages
 
-1. Push this repository to GitHub.
-2. In the repository, open **Settings → Pages → Build and deployment** and set **Source** to **GitHub Actions**.
-3. `.github/workflows/deploy.yml` publishes `main` after each push.
+Pushes to `main` run `.github/workflows/deploy.yml`. In the repository, **Settings → Pages → Build and deployment** must stay on **GitHub Actions**.
 
 The site uses a relative asset path, so it works at `https://<user>.github.io/<repo>/` and at a custom domain.
 

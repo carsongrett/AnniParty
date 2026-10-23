@@ -10,7 +10,9 @@ import { event } from "./config/event";
 
 export default function App() {
   useEffect(() => {
-    document.title = `${event.name} · ${event.coupleNames}`;
+    document.title = event.occasion
+      ? `${event.name} · ${event.occasion}`
+      : `${event.name} · ${event.coupleNames}`;
   }, []);
 
   return (

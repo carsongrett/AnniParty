@@ -19,7 +19,12 @@ export function Hero() {
         <h1 className="font-serif text-5xl leading-[0.95] text-ink sm:text-6xl md:text-7xl">
           {event.name}
         </h1>
-        <p className="mt-3 font-serif text-3xl leading-tight text-ink sm:text-4xl">
+        {event.occasion ? (
+          <p className="mt-3 font-serif text-4xl leading-tight text-ink sm:text-5xl">
+            {event.occasion}
+          </p>
+        ) : null}
+        <p className="mt-4 font-serif text-3xl leading-tight text-ink sm:text-4xl">
           {event.coupleNames}
         </p>
         <p className="mt-10 font-serif text-3xl text-ink md:text-4xl">{event.date}</p>
