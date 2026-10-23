@@ -126,16 +126,22 @@ export const event = {
       height: 2000,
     },
     {
+      src: "photos/lawn.jpg",
+      alt: "Carson and Mason standing together on a lawn in suits.",
+      width: 741,
+      height: 989,
+    },
+    {
+      src: "photos/porch.jpg",
+      alt: "Carson and Mason in blazers on a porch beside a green lawn.",
+      width: 741,
+      height: 989,
+    },
+    {
       src: "photos/city.jpg",
       alt: "Carson and Mason standing in the middle of a city avenue.",
       width: 1800,
       height: 2700,
-    },
-    {
-      src: "photos/license.jpg",
-      alt: "Carson and Mason holding their marriage license.",
-      width: 1500,
-      height: 2000,
     },
     {
       src: "photos/lights.jpg",
@@ -144,20 +150,32 @@ export const event = {
       height: 2000,
     },
     {
-      src: "photos/lawn.jpg",
-      alt: "Carson and Mason standing together on a lawn in suits.",
-      width: 741,
-      height: 989,
-    },
-    {
       src: "photos/roof.jpg",
       alt: "Carson and Mason taking a selfie under a roof, both giving a thumbs up.",
       width: 741,
       height: 989,
     },
     {
+      src: "photos/bridge.jpg",
+      alt: "Carson and Mason in scarves on a bridge over the water.",
+      width: 741,
+      height: 989,
+    },
+    {
+      src: "photos/license.jpg",
+      alt: "Carson and Mason holding their marriage license.",
+      width: 1500,
+      height: 2000,
+    },
+    {
       src: "photos/water.jpg",
       alt: "Carson and Mason smiling together beside a waterway at dusk.",
+      width: 1319,
+      height: 989,
+    },
+    {
+      src: "photos/hike.jpg",
+      alt: "Carson and Mason smiling on a green overlook above a coastal town.",
       width: 1319,
       height: 989,
     },
@@ -176,24 +194,6 @@ export const event = {
     {
       src: "photos/booth.jpg",
       alt: "Sitting in a booth beside a brindle dog.",
-      width: 741,
-      height: 989,
-    },
-    {
-      src: "photos/hike.jpg",
-      alt: "Carson and Mason smiling on a green overlook above a coastal town.",
-      width: 1319,
-      height: 989,
-    },
-    {
-      src: "photos/porch.jpg",
-      alt: "Carson and Mason in blazers on a porch beside a green lawn.",
-      width: 741,
-      height: 989,
-    },
-    {
-      src: "photos/bridge.jpg",
-      alt: "Carson and Mason in scarves on a bridge over the water.",
       width: 741,
       height: 989,
     },
