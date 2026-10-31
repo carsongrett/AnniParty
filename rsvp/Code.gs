@@ -121,7 +121,7 @@ var PAGE = `<!DOCTYPE html>
     button, .text-button {
       box-sizing: border-box;
       width: 100%;
-      margin-top: 0.7rem;
+      margin-top: 0.85rem;
       min-height: 2.75rem;
       border: 0;
       background: #2c2825;
