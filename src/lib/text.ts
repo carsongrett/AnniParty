@@ -30,10 +30,30 @@ export function httpUrl(value: string): string | null {
   }
 }
 
+function mapsQuery(explicitUrl: string, address: string): string | null {
+  const explicit = httpUrl(explicitUrl);
+  if (explicit) {
+    try {
+      const parsed = new URL(explicit);
+      const query = parsed.searchParams.get("query") ?? parsed.searchParams.get("q");
+      if (query) return query;
+    } catch {
+      /* Use the address below. */
+    }
+  }
+  return visibleText(address);
+}
+
 export function mapsHref(explicitUrl: string, address: string): string | null {
+  const place = mapsQuery(explicitUrl, address);
+  if (!place) return null;
   const explicit = httpUrl(explicitUrl);
   if (explicit) return explicit;
-  const place = visibleText(address);
-  if (!place) return null;
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place)}`;
+}
+
+export function appleMapsHref(explicitUrl: string, address: string): string | null {
+  const place = mapsQuery(explicitUrl, address);
+  if (!place) return null;
+  return `https://maps.apple.com/?q=${encodeURIComponent(place)}`;
 }

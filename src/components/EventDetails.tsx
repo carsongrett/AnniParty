@@ -11,7 +11,7 @@ import {
   primaryButtonClass,
   secondaryButtonClass,
 } from "../lib/styles";
-import { joinVisible, mapsHref, visibleText } from "../lib/text";
+import { appleMapsHref, joinVisible, mapsHref, visibleText } from "../lib/text";
 
 export function EventDetails() {
   const dateText =
@@ -29,6 +29,7 @@ export function EventDetails() {
   const zoneText =
     formatTimeZoneName(event.calendarStart, event.timeZone) ?? event.timeZone;
   const maps = mapsHref(event.mapsUrl, event.venueAddress);
+  const appleMaps = appleMapsHref(event.mapsUrl, event.venueAddress);
   const location = joinVisible([event.venueName, event.venueAddress], "\n");
   const calendar = buildCalendar({
     name: event.calendarTitle,
@@ -59,14 +60,26 @@ export function EventDetails() {
           <span className="block">{event.venueName}</span>
           <span className="mt-1 block text-base text-muted">{event.venueAddress}</span>
           {maps ? (
-            <a
-              href={maps}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-3 inline-flex min-h-11 items-center underline decoration-line underline-offset-4"
-            >
-              Open in Google Maps
-            </a>
+            <span className="mt-3 flex flex-wrap gap-x-5">
+              <a
+                href={maps}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-11 items-center underline decoration-line underline-offset-4"
+              >
+                Google Maps
+              </a>
+              {appleMaps ? (
+                <a
+                  href={appleMaps}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex min-h-11 items-center underline decoration-line underline-offset-4"
+                >
+                  Apple Maps
+                </a>
+              ) : null}
+            </span>
           ) : (
             <span className="mt-3 block text-sm text-muted">
               A map link will appear once the venue address is added.
