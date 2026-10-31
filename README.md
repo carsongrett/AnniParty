@@ -76,13 +76,18 @@ The site uses a relative asset path, so it works at `https://<user>.github.io/<r
 
 ## Custom domain
 
-When you have a domain:
+The live domain is **thegretts.com**. `public/CNAME` must stay that name.
 
-1. Add it under **Settings → Pages → Custom domain**.
-2. Create `public/CNAME` containing only the domain name, then redeploy.
-3. At your DNS host, follow [GitHub’s custom domain instructions](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site). Use a `CNAME` record to `<user>.github.io` for a subdomain, or the `A`/`AAAA` records GitHub lists for an apex domain.
+On Namecheap, Advanced DNS for the apex `@` should be these GitHub A records:
 
-No custom domain is configured yet.
+- `185.199.108.153`
+- `185.199.109.153`
+- `185.199.110.153`
+- `185.199.111.153`
+
+Optional: a `www` CNAME to `carsongrett.github.io.` so www.thegretts.com also works.
+
+In the repository, **Settings → Pages → Custom domain** is `thegretts.com`. Turn on **Enforce HTTPS** after the DNS check passes.
 
 ## Privacy
 
