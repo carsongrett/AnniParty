@@ -44,14 +44,7 @@ export function EventDetails() {
     { label: "Date", value: dateText },
     {
       label: "Time",
-      value: (
-        <>
-          {startText} – {endText} {zoneText}
-          <span className="mt-1 block text-base text-muted">
-            insert schedule/come and go/timeline once figured out
-          </span>
-        </>
-      ),
+      value: `${startText} – ${endText} ${zoneText}`,
     },
     {
       label: "Location",

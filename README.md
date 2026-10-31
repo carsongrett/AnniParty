@@ -12,7 +12,7 @@ Read this section first in a new chat.
 - Location label is **Location**. Place: Tejas Brewery, Rooftop, 2101 Summer St, Houston, TX 77007. The map search is the street address only.
 - Dress code: Cocktail.
 - Food and drink: bites and pizzas for dinner. Open bar with beer, wine, and spirits. Do not list the individual dishes, and do not say the bar is only 3 hours, until that is confirmed.
-- The Details time reads on one line, with CST after 9:00 pm. Under it, a placeholder says to insert the schedule, come-and-go, or timeline once that is figured out. The evening schedule list is still hidden (`schedule: []`).
+- The Details time reads on one line, with CST after 9:00 pm. The evening schedule list is still hidden (`schedule: []`).
 - Parking on the page: lot with security. Rideshare is encouraged. Do not drink and drive.
 - Calendar title is exactly `Grett's Anniversary Party`, with no description.
 - RSVPify is gone. Replies live in the private Grett RSVP Google Sheet. Guests type a first and last name, and only a matching row can answer yes or no. The page script is `rsvp/Code.gs`. `rsvpPageUrl` is the deployed web app. Do not put the guest list in this repo.
