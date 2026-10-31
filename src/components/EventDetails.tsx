@@ -30,7 +30,10 @@ export function EventDetails() {
     formatTimeZoneName(event.calendarStart, event.timeZone) ?? event.timeZone;
   const maps = mapsHref(event.mapsUrl, event.venueAddress);
   const appleMaps = appleMapsHref(event.mapsUrl, event.venueAddress);
-  const location = joinVisible([event.venueName, event.venueAddress], "\n");
+  const location = joinVisible(
+    [event.venueName, event.venueArea, event.venueAddress],
+    "\n",
+  );
   const calendar = buildCalendar({
     name: event.calendarTitle,
     description: event.calendarDescription,
@@ -51,6 +54,9 @@ export function EventDetails() {
       value: (
         <>
           <span className="block">{event.venueName}</span>
+          {event.venueArea ? (
+            <span className="mt-1 block text-base text-muted">{event.venueArea}</span>
+          ) : null}
           <span className="mt-1 block text-base text-muted">{event.venueAddress}</span>
           {maps ? (
             <span className="mt-3 flex flex-wrap gap-x-5">

@@ -46,7 +46,8 @@ export const event = {
   timeZone: "America/Chicago",
 
   venueName: "Tejas Brewery",
-  venueAddress: "Rooftop, 2101 Summer St, Houston, TX 77007",
+  venueArea: "Rooftop",
+  venueAddress: "2101 Summer St, Houston, TX 77007",
   /**
    * Optional. A Google Maps link is created from venueAddress when that
    * value is no longer a placeholder. Set this to override that link.

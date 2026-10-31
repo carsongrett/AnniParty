@@ -9,7 +9,7 @@ Read this section first in a new chat.
 - Family name on the page: **The Gretts** (no apostrophe). Couple: Carson and Mason.
 - The large line under the name is **First Anniversary** (`occasion` in `event.ts`). The header link stays "The Gretts".
 - Married January 10, 2026. The party is Saturday, January 9, 2027, 5:00–9:00 pm, America/Chicago. The January 9 date is the one that should stand out. "Married January 10, 2026" stays the quieter line in the header. The celebration note begins "We ran off and got married on January 10, 2026."
-- Location label is **Location**. Place: Tejas Brewery, Rooftop, 2101 Summer St, Houston, TX 77007. The map search is the street address only.
+- Location label is **Location**. Place: Tejas Brewery, then Rooftop on its own line, then 2101 Summer St, Houston, TX 77007. The map search is the street address only.
 - Dress code: Cocktail.
 - Food and drink: bites and pizzas for dinner. Open bar with beer, wine, and spirits. Do not list the individual dishes, and do not say the bar is only 3 hours, until that is confirmed.
 - The Details time reads on one line, with CST after 9:00 pm. The evening schedule list is still hidden (`schedule: []`).
