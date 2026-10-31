@@ -29,11 +29,14 @@ var PAGE = `<!DOCTYPE html>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Find your invitation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Outfit:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
       color: #2c2825;
       background: #f6f1e8;
-      font-family: Georgia, "Palatino Linotype", Palatino, serif;
+      font-family: Outfit, system-ui, sans-serif;
     }
     html, body {
       margin: 0;
@@ -45,9 +48,13 @@ var PAGE = `<!DOCTYPE html>
       margin: 0;
       padding: 1.15rem 1.1rem 1.35rem;
     }
+    h1, .occasion, .person-name, .miss, #done .note {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-weight: 500;
+    }
     h1 {
       margin: 0;
-      font-weight: 400;
+      font-weight: 500;
       font-size: 1.65rem;
       line-height: 1.15;
       white-space: nowrap;
@@ -65,7 +72,7 @@ var PAGE = `<!DOCTYPE html>
     }
     .lede {
       margin: 0.4rem 0 0;
-      font-family: "Segoe UI", sans-serif;
+      font-family: Outfit, system-ui, sans-serif;
       font-size: 1rem;
       line-height: 1.35;
     }
@@ -75,7 +82,7 @@ var PAGE = `<!DOCTYPE html>
     label {
       display: block;
       margin: 0.7rem 0 0.3rem;
-      font-family: "Segoe UI", sans-serif;
+      font-family: Outfit, system-ui, sans-serif;
       font-size: 0.78rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -87,7 +94,7 @@ var PAGE = `<!DOCTYPE html>
       background: #fffaf3;
       color: #2c2825;
       font: inherit;
-      font-family: "Segoe UI", sans-serif;
+      font-family: Outfit, system-ui, sans-serif;
       font-size: 1rem;
       padding: 0.65rem 0.75rem;
     }
@@ -132,7 +139,7 @@ var PAGE = `<!DOCTYPE html>
       border: 0;
       background: #2c2825;
       color: #f6f1e8;
-      font-family: "Segoe UI", sans-serif;
+      font-family: Outfit, system-ui, sans-serif;
       font-size: 0.8rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
@@ -155,7 +162,7 @@ var PAGE = `<!DOCTYPE html>
       padding: 0;
     }
     .error, .quiet {
-      font-family: "Segoe UI", sans-serif;
+      font-family: Outfit, system-ui, sans-serif;
       font-size: 0.95rem;
       line-height: 1.5;
     }
