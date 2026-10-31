@@ -66,7 +66,7 @@ Guest names stay in a private Google Sheet. This repo never stores the list.
 
 The first tab needs `First Name` and `Last Name` columns. `Response`, `Note`, `Responded At`, and `Group` are added if they are missing. A couple shares one word in `Group`, and either person can answer yes or no for both. A blank `Group` means that guest replies alone. The script in `rsvp/Code.gs` is pasted into Extensions → Apps Script on that sheet. If that menu only opens a Drive error, paste the sheet link into `SPREADSHEET_URL` at the top of the script and create the project at script.google.com instead. Deploy it as a web app that runs as the sheet owner and is open to anyone. Matching is the full first and last name, ignoring case and extra spaces. A name that is not on the list cannot send a reply. The page says "We could not find your name." Every name someone tries is appended to a tab named Log, including names that are not on the list, so a typo on the sheet can be checked. The page does not show other guests.
 
-The deployed web app URL belongs in `rsvpPageUrl`. The invitation links to it from the RSVP section.
+The deployed web app URL belongs in `rsvpPageUrl`. The invitation shows that page in the RSVP section. The header and hero RSVP buttons scroll to it.
 
 ## Deploy to GitHub Pages
 

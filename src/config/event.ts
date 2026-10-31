@@ -80,7 +80,7 @@ export const event = {
   rsvpDeadline,
 
   /**
-   * The Google reply page. Guests open this, enter a name, and answer yes or no.
+   * The Google reply page, shown in the RSVP section.
    * The sheet stays private. This URL does not include the guest list.
    */
   rsvpPageUrl:

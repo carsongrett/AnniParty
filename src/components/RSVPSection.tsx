@@ -12,14 +12,11 @@ export function RSVPSection() {
     <section id="rsvp" className="scroll-mt-32 border-t border-line bg-cream">
       <div className="mx-auto max-w-3xl px-5 py-14 text-center md:px-8 md:py-20">
         {pageUrl ? (
-          <a
-            href={pageUrl}
-            className="inline-flex min-h-24 w-full items-center justify-center bg-ink px-10 font-serif text-5xl text-ivory sm:w-auto sm:min-w-80 sm:px-20 md:min-h-28 md:text-6xl"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            RSVP
-          </a>
+          <iframe
+            title="RSVP"
+            src={pageUrl}
+            className="block h-[32rem] w-full border-0 bg-ivory"
+          />
         ) : embedCode ? (
           <EmbedCode html={embedCode} minHeight={event.rsvpifyFrameHeight} />
         ) : eventUrl ? (
