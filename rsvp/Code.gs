@@ -451,7 +451,8 @@ var PAGE = `<!DOCTYPE html>
     }
 
     document.getElementById("ics").onclick = function () {
-      var stamp = new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d{3}Z$/, "Z");
+      var stamp = new Date().toISOString().replace(/[-:.]/g, "").slice(0, 15) + "Z";
+      var line = String.fromCharCode(13) + String.fromCharCode(10);
       var ics = [
         "BEGIN:VCALENDAR",
         "VERSION:2.0",
@@ -468,7 +469,7 @@ var PAGE = `<!DOCTYPE html>
         " 07",
         "END:VEVENT",
         "END:VCALENDAR"
-      ].join("\r\n") + "\r\n";
+      ].join(line) + line;
       var blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
       var url = URL.createObjectURL(blob);
       var link = document.createElement("a");
