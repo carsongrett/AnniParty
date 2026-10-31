@@ -91,4 +91,4 @@ In the repository, **Settings → Pages → Custom domain** is `thegretts.com`. 
 
 ## Privacy
 
-The page sends `noindex, nofollow`, and `public/robots.txt` asks crawlers not to index the site. Anyone with the link can still open it. Do not put guest lists or other personal guest data in this repository.
+The page sends `noindex, nofollow`. `public/robots.txt` blocks Googlebot and lets other crawlers fetch the page so iMessage and similar apps can show the hero preview. Anyone with the link can still open it. Do not put guest lists or other personal guest data in this repository.
