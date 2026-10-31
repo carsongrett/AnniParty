@@ -115,6 +115,8 @@ var PAGE = `<!DOCTYPE html>
     }
     .choices label:has(input:checked) {
       border-color: #2c2825;
+      background: #2c2825;
+      color: #f6f1e8;
     }
     button, .text-button {
       box-sizing: border-box;
@@ -166,6 +168,36 @@ var PAGE = `<!DOCTYPE html>
     .quiet {
       color: #6f675f;
     }
+    .miss {
+      margin: 0.45rem 0 0;
+      font-size: 1.35rem;
+    }
+    .cal-title {
+      margin: 0.9rem 0 0;
+      font-size: 1.35rem;
+    }
+    a.action {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      width: 100%;
+      margin-top: 0.5rem;
+      min-height: 2.75rem;
+      background: #2c2825;
+      color: #f6f1e8;
+      font-family: "Segoe UI", sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.85rem 1.25rem;
+    }
+    button.secondary {
+      background: transparent;
+      color: #2c2825;
+      border: 1px solid #2c2825;
+    }
     [hidden] {
       display: none !important;
     }
@@ -189,7 +221,8 @@ var PAGE = `<!DOCTYPE html>
       <p id="together" class="lede" hidden></p>
       <p class="lede">Will you be there?</p>
       <div id="people"></div>
-      <label for="note">Anything we should know? Optional.</label>
+      <p id="miss" class="miss" hidden>We'll miss you!</p>
+      <label for="note">Dietary restriction?</label>
       <textarea id="note" name="note" maxlength="500" rows="1"></textarea>
       <p id="reply-error" class="error" role="alert"></p>
       <button id="send" type="submit">Send reply</button>
@@ -200,13 +233,22 @@ var PAGE = `<!DOCTYPE html>
       <p id="saved-hello" class="occasion"></p>
       <p class="lede">You already replied.</p>
       <p id="saved-summary" class="lede"></p>
+      <p id="saved-miss" class="miss" hidden>We'll miss you!</p>
       <div><button id="change" class="text-button" type="button">Need to change?</button></div>
       <div><button id="saved-back" class="text-button" type="button">Use a different name</button></div>
     </section>
 
     <section id="done" class="card" hidden>
       <p id="thanks" class="occasion"></p>
+      <p id="thanks-miss" class="miss" hidden>We'll miss you!</p>
     </section>
+
+    <div id="calendar" hidden>
+      <p class="cal-title">Add to calendar</p>
+      <a class="action" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Grett%27s+Anniversary+Party&amp;dates=20270116T170000%2F20270116T210000&amp;ctz=America%2FChicago&amp;location=Tejas+Brewery%2C+Skyline+Lounge%2C+2101+Summer+St%2C+Houston%2C+TX+77007" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+      <button id="ics" class="secondary" type="button">Download .ics</button>
+      <p class="quiet">The .ics file works with Apple Calendar and Outlook.</p>
+    </div>
 
     <section id="problem" class="card" hidden>
       <p class="occasion">This page is not ready yet.</p>
@@ -230,17 +272,35 @@ var PAGE = `<!DOCTYPE html>
       });
     }
 
-    function replySummary(people) {
+    function comingCount(people) {
       var coming = 0;
       for (var i = 0; i < people.length; i++) {
         if (people[i].response === "Yes") coming++;
       }
+      return coming;
+    }
+
+    function bothNo(values) {
+      return values.length === 2 && values[0] === "No" && values[1] === "No";
+    }
+
+    function replySummary(people) {
+      var coming = comingCount(people);
       if (people.length <= 1) {
         return coming ? "We have you down as coming." : "We have you down as not coming.";
       }
       if (people.length === 2 && coming === 2) return "We have you both down as coming.";
       if (people.length === 2 && coming === 0) return "We have you both down as not coming.";
       return "We have your replies.";
+    }
+
+    function showFollowup(hostId, coming, missed) {
+      document.getElementById("saved-miss").hidden = hostId !== "saved" || !missed;
+      document.getElementById("thanks-miss").hidden = hostId !== "done" || !missed;
+      var host = document.getElementById(hostId);
+      var calendar = document.getElementById("calendar");
+      host.appendChild(calendar);
+      calendar.hidden = coming < 1;
     }
 
     function reportHeight() {
@@ -292,6 +352,8 @@ var PAGE = `<!DOCTYPE html>
           if (repliedAlready(party)) {
             document.getElementById("saved-hello").textContent = "Hi " + result.firstName + ".";
             document.getElementById("saved-summary").textContent = replySummary(party);
+            var savedAnswers = party.map(function (person) { return person.response; });
+            showFollowup("saved", comingCount(party), bothNo(savedAnswers));
             show("saved");
             return;
           }
@@ -335,6 +397,12 @@ var PAGE = `<!DOCTYPE html>
             return;
           }
           document.getElementById("thanks").textContent = result.summary;
+          var sent = replies.map(function (reply) { return reply.attending; });
+          var sentComing = 0;
+          for (var n = 0; n < sent.length; n++) {
+            if (sent[n] === "Yes") sentComing++;
+          }
+          showFollowup("done", sentComing, bothNo(sent));
           show("done");
         })
         .withFailureHandler(function () {
@@ -362,6 +430,7 @@ var PAGE = `<!DOCTYPE html>
           input.checked = person.response === value;
           var span = document.createElement("span");
           span.textContent = value;
+          input.onchange = updateMiss;
           label.appendChild(input);
           label.appendChild(span);
           choices.appendChild(label);
@@ -369,7 +438,47 @@ var PAGE = `<!DOCTYPE html>
         root.appendChild(name);
         root.appendChild(choices);
       });
+      updateMiss();
     }
+
+    function updateMiss() {
+      var answers = [];
+      for (var i = 0; i < party.length; i++) {
+        var choice = document.querySelector("input[name=attending-" + i + "]:checked");
+        answers.push(choice ? choice.value : "");
+      }
+      document.getElementById("miss").hidden = !bothNo(answers);
+    }
+
+    document.getElementById("ics").onclick = function () {
+      var stamp = new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d{3}Z$/, "Z");
+      var ics = [
+        "BEGIN:VCALENDAR",
+        "VERSION:2.0",
+        "PRODID:-//AnniParty//Anniversary//EN",
+        "CALSCALE:GREGORIAN",
+        "METHOD:PUBLISH",
+        "BEGIN:VEVENT",
+        "UID:20270116T170000-grett-s-anniversary-party@anniversary.local",
+        "DTSTAMP:" + stamp,
+        "DTSTART:20270116T230000Z",
+        "DTEND:20270117T030000Z",
+        "SUMMARY:Grett's Anniversary Party",
+        "LOCATION:Tejas Brewery\\, Skyline Lounge\\, 2101 Summer St\\, Houston\\, TX 770",
+        " 07",
+        "END:VEVENT",
+        "END:VCALENDAR"
+      ].join("\r\n") + "\r\n";
+      var blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
+      var url = URL.createObjectURL(blob);
+      var link = document.createElement("a");
+      link.href = url;
+      link.download = "anniversary.ics";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+    };
 
     document.getElementById("back").onclick = function () {
       show("lookup");
