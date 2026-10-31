@@ -215,6 +215,12 @@ export const event = {
       width: 741,
       height: 989,
     },
+    {
+      src: "photos/cat.jpg",
+      alt: "A gray tabby cat with blue eyes lying in a green cat tree.",
+      width: 1500,
+      height: 2000,
+    },
   ] satisfies Photo[],
 
   faqs: [
