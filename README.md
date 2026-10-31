@@ -8,18 +8,18 @@ Read this section first in a new chat.
 
 - Family name on the page: **The Gretts** (no apostrophe). Couple: Carson and Mason.
 - The large line under the name is **First Anniversary** (`occasion` in `event.ts`). The header link stays "The Gretts".
-- Married January 10, 2026. The party is Saturday, January 16, 2027, 5:00–9:00 pm, America/Chicago. The January 16 date is the one that should stand out. "Married January 10, 2026" stays the quieter line in the header. The celebration note begins "We ran off and got married on January 10, 2026."
-- Location label is **Location**. Place: Tejas Brewery, Skyline Lounge, 2101 Summer St, Houston, TX 77007. The map search is the street address only.
-- Dress code: Cocktail attire.
+- Married January 10, 2026. The party is Saturday, January 9, 2027, 5:00–9:00 pm, America/Chicago. The January 9 date is the one that should stand out. "Married January 10, 2026" stays the quieter line in the header. The celebration note begins "We ran off and got married on January 10, 2026."
+- Location label is **Location**. Place: Tejas Brewery, Rooftop, 2101 Summer St, Houston, TX 77007. The map search is the street address only.
+- Dress code: Cocktail.
 - Food and drink: bites and pizzas for dinner. Open bar with beer, wine, and spirits. Do not list the individual dishes, and do not say the bar is only 3 hours, until that is confirmed.
 - The Details time reads on one line, with CST after 9:00 pm. Under it, a placeholder says to insert the schedule, come-and-go, or timeline once that is figured out. The evening schedule list is still hidden (`schedule: []`).
-- Parking on the page: lot with security. Valet is still unconfirmed. Rideshare is encouraged.
+- Parking on the page: lot with security. Rideshare is encouraged. Do not drink and drive.
 - Calendar title is exactly `Grett's Anniversary Party`, with no description.
 - RSVPify is gone. Replies live in the private Grett RSVP Google Sheet. Guests type a first and last name, and only a matching row can answer yes or no. The page script is `rsvp/Code.gs`. `rsvpPageUrl` is the deployed web app. Do not put the guest list in this repo.
-- FAQ on the page: parking, rideshare, dietary needs (still a placeholder), gifts. The gift answer says no gift is needed, and mentions a handwritten card and a card box instead of a guest book. Children, plus-ones, and the RSVP deadline are not on the page. The deadline text still lives in `rsvpDeadline` and is aiming for December 15, not final.
+- FAQ on the page: parking (includes rideshare), define cocktail, gifts. The gift answer says no gift is needed, and a handwritten card can go in the card box. Children, plus-ones, and the RSVP deadline are not on the page. The deadline text still lives in `rsvpDeadline` and is aiming for December 15, not final.
 - Photos: `photos/hero.jpg` is the tighter dinner crop with no one else in the background. `photos/beach.jpg` sits beside the welcome note. The gallery is one set of photos of Carson and Mason, read left to right. Photos with other people are not included. `photos/tuxedos.jpg` stays first. `photos/rings.jpg` stays second. Formal portraits come next, then selfies and casual photos. Guests scroll it themselves. Tapping a photo opens it large.
 - The brochure phone number and the catering guest count of 100 must not be published.
-- Still open: valet, whether the open bar covers all four hours, sound equipment, children, plus-ones, a final RSVP date, and whether the evening needs a schedule.
+- Still open: whether the open bar covers all four hours, sound equipment, children, plus-ones, a final RSVP date, and whether the evening needs a schedule.
 
 ## Run locally
 

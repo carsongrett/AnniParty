@@ -32,7 +32,7 @@ export const event = {
   /** Large line under the family name. Leave "" to hide it. */
   occasion: "First Anniversary",
   coupleNames: "Carson & Mason",
-  date: "Saturday, January 16, 2027",
+  date: "Saturday, January 9, 2027",
   anniversaryDate: "January 10, 2026",
   tagline: "",
   welcomeMessage:
@@ -46,7 +46,7 @@ export const event = {
   timeZone: "America/Chicago",
 
   venueName: "Tejas Brewery",
-  venueAddress: "Skyline Lounge, 2101 Summer St, Houston, TX 77007",
+  venueAddress: "Rooftop, 2101 Summer St, Houston, TX 77007",
   /**
    * Optional. A Google Maps link is created from venueAddress when that
    * value is no longer a placeholder. Set this to override that link.
@@ -54,7 +54,7 @@ export const event = {
   mapsUrl:
     "https://www.google.com/maps/search/?api=1&query=2101%20Summer%20St%2C%20Houston%2C%20TX%2077007",
 
-  dressCode: "Cocktail attire.",
+  dressCode: "Cocktail.",
   menu:
     "Bites and pizzas for dinner. The bar is open, with beer, wine, and spirits.",
 
@@ -70,8 +70,8 @@ export const event = {
    * Leave both blank until the date is final. Calendar buttons stay off until
    * these and timeZone are valid.
    */
-  calendarStart: "2027-01-16T17:00:00",
-  calendarEnd: "2027-01-16T21:00:00",
+  calendarStart: "2027-01-09T17:00:00",
+  calendarEnd: "2027-01-09T21:00:00",
   /** Title used for Google Calendar and the .ics file. */
   calendarTitle: "Grett's Anniversary Party",
   /** Leave "" for no calendar description. */
@@ -221,20 +221,17 @@ export const event = {
     {
       question: "Where should I park?",
       answer:
-        "The brewery has a parking lot with security. Valet is still being confirmed.",
+        "The brewery has a parking lot with security. Rideshare is encouraged. Please do not drink and drive.",
     },
     {
-      question: "Is rideshare recommended?",
-      answer: "Rideshare is encouraged. Please do not drink and drive.",
-    },
-    {
-      question: "Will dietary restrictions be accommodated?",
-      answer: "[DIETARY_INFORMATION]",
+      question: "Define cocktail",
+      answer:
+        "Think a dress or dressy separates, a jumpsuit, or a suit or sport coat. January weather in Houston can go either way, so bring a wrap, blazer, or dressy coat in case it's chilly. There will be heaters if so!",
     },
     {
       question: "Should I bring a gift?",
       answer:
-        "No need for a gift. We do love a handwritten card, though. In lieu of a guest book, we'll have a card box for any notes or well wishes you'd like to share.",
+        "No need for a gift. We do love a handwritten card, though. Feel free to drop one in our card box with your well wishes!",
     },
   ] as FaqItem[],
 };
