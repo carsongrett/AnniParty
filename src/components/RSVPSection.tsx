@@ -22,7 +22,7 @@ export function RSVPSection() {
       if (typeof height !== "number" || height < 160 || height > 1400) return;
       const frame = frameRef.current;
       if (!frame) return;
-      frame.style.height = `${Math.ceil(height)}px`;
+      frame.style.height = `${Math.ceil(height) + 40}px`;
     }
 
     window.addEventListener("message", onMessage);
@@ -31,7 +31,7 @@ export function RSVPSection() {
 
   return (
     <section id="rsvp" className="scroll-mt-32 border-t border-line bg-cream">
-      <div className="mx-auto max-w-3xl px-5 py-5 text-center md:px-8 md:py-16">
+      <div className="mx-auto max-w-3xl px-5 py-10 text-center md:px-8 md:py-20">
         {pageUrl ? (
           <iframe
             ref={frameRef}

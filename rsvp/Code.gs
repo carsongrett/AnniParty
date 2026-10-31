@@ -43,7 +43,7 @@ var PAGE = `<!DOCTYPE html>
       box-sizing: border-box;
       width: 100%;
       margin: 0;
-      padding: 0.85rem 1rem 0.75rem;
+      padding: 1.15rem 1.1rem 1.35rem;
     }
     h1 {
       margin: 0;
@@ -64,11 +64,11 @@ var PAGE = `<!DOCTYPE html>
       line-height: 1.35;
     }
     form, .card {
-      margin-top: 0.65rem;
+      margin-top: 0.9rem;
     }
     label {
       display: block;
-      margin: 0.55rem 0 0.25rem;
+      margin: 0.7rem 0 0.3rem;
       font-family: "Segoe UI", sans-serif;
       font-size: 0.78rem;
       letter-spacing: 0.12em;
