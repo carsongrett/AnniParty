@@ -172,35 +172,6 @@ var PAGE = `<!DOCTYPE html>
       margin: 0.45rem 0 0;
       font-size: 1.35rem;
     }
-    .cal-title {
-      margin: 0.9rem 0 0;
-      font-size: 1.35rem;
-    }
-    #calendar {
-      text-align: center;
-    }
-    a.action {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-sizing: border-box;
-      width: 100%;
-      margin-top: 0.5rem;
-      min-height: 2.75rem;
-      background: #2c2825;
-      color: #f6f1e8;
-      font-family: "Segoe UI", sans-serif;
-      font-size: 0.8rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      text-decoration: none;
-      padding: 0.85rem 1.25rem;
-    }
-    button.secondary {
-      background: transparent;
-      color: #2c2825;
-      border: 1px solid #2c2825;
-    }
     [hidden] {
       display: none !important;
     }
@@ -242,16 +213,9 @@ var PAGE = `<!DOCTYPE html>
     </section>
 
     <section id="done" class="card" hidden>
-      <p id="thanks" class="occasion"></p>
+      <p class="lede">We received your reply.</p>
       <p id="thanks-miss" class="miss" hidden>We'll miss you!</p>
     </section>
-
-    <div id="calendar" hidden>
-      <p class="cal-title">Add to calendar</p>
-      <a class="action" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Grett%27s+Anniversary+Party&amp;dates=20270116T170000%2F20270116T210000&amp;ctz=America%2FChicago&amp;location=Tejas+Brewery%2C+Skyline+Lounge%2C+2101+Summer+St%2C+Houston%2C+TX+77007" target="_blank" rel="noopener noreferrer">Google Calendar</a>
-      <button id="ics" class="secondary" type="button">Download .ics</button>
-      <p class="quiet">The .ics file works with Apple Calendar and Outlook.</p>
-    </div>
 
     <section id="problem" class="card" hidden>
       <p class="occasion">This page is not ready yet.</p>
@@ -298,15 +262,6 @@ var PAGE = `<!DOCTYPE html>
       if (people.length === 2 && coming === 2) return "We have you both down as coming.";
       if (people.length === 2 && coming === 0) return "We have you both down as not coming.";
       return "We have your replies.";
-    }
-
-    function showFollowup(hostId, coming, missed) {
-      document.getElementById("saved-miss").hidden = hostId !== "saved" || !missed;
-      document.getElementById("thanks-miss").hidden = hostId !== "done" || !missed;
-      var host = document.getElementById(hostId);
-      var calendar = document.getElementById("calendar");
-      host.appendChild(calendar);
-      calendar.hidden = coming < 1;
     }
 
     function reportHeight() {
@@ -358,8 +313,9 @@ var PAGE = `<!DOCTYPE html>
           if (repliedAlready(party)) {
             document.getElementById("saved-hello").textContent = "Hi " + result.firstName + ".";
             document.getElementById("saved-summary").textContent = replySummary(party);
-            var savedAnswers = party.map(function (person) { return person.response; });
-            showFollowup("saved", comingCount(party), bothNo(savedAnswers));
+            document.getElementById("saved-miss").hidden = !bothNo(party.map(function (person) {
+              return person.response;
+            }));
             show("saved");
             return;
           }
@@ -402,13 +358,9 @@ var PAGE = `<!DOCTYPE html>
             error.textContent = "Something went wrong. Try again in a minute.";
             return;
           }
-          document.getElementById("thanks").textContent = result.summary;
-          var sent = replies.map(function (reply) { return reply.attending; });
-          var sentComing = 0;
-          for (var n = 0; n < sent.length; n++) {
-            if (sent[n] === "Yes") sentComing++;
-          }
-          showFollowup("done", sentComing, bothNo(sent));
+          document.getElementById("thanks-miss").hidden = !bothNo(replies.map(function (reply) {
+            return reply.attending;
+          }));
           show("done");
         })
         .withFailureHandler(function () {
@@ -455,37 +407,6 @@ var PAGE = `<!DOCTYPE html>
       }
       document.getElementById("miss").hidden = !bothNo(answers);
     }
-
-    document.getElementById("ics").onclick = function () {
-      var stamp = new Date().toISOString().replace(/[-:.]/g, "").slice(0, 15) + "Z";
-      var line = String.fromCharCode(13) + String.fromCharCode(10);
-      var ics = [
-        "BEGIN:VCALENDAR",
-        "VERSION:2.0",
-        "PRODID:-//AnniParty//Anniversary//EN",
-        "CALSCALE:GREGORIAN",
-        "METHOD:PUBLISH",
-        "BEGIN:VEVENT",
-        "UID:20270116T170000-grett-s-anniversary-party@anniversary.local",
-        "DTSTAMP:" + stamp,
-        "DTSTART:20270116T230000Z",
-        "DTEND:20270117T030000Z",
-        "SUMMARY:Grett's Anniversary Party",
-        "LOCATION:Tejas Brewery\\, Skyline Lounge\\, 2101 Summer St\\, Houston\\, TX 770",
-        " 07",
-        "END:VEVENT",
-        "END:VCALENDAR"
-      ].join(line) + line;
-      var blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
-      var url = URL.createObjectURL(blob);
-      var link = document.createElement("a");
-      link.href = url;
-      link.download = "anniversary.ics";
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      URL.revokeObjectURL(url);
-    };
 
     document.getElementById("back").onclick = function () {
       show("lookup");
