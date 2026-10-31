@@ -246,6 +246,7 @@ var PAGE = `<!DOCTYPE html>
   <script>
     var savedName = { first: "", last: "" };
     var party = [];
+    var missedNames = 0;
 
     function show(id) {
       ["lookup", "reply", "saved", "done", "problem"].forEach(function (name) {
@@ -314,7 +315,10 @@ var PAGE = `<!DOCTYPE html>
             return;
           }
           if (result.status === "missing") {
-            error.textContent = "We could not find your name.";
+            missedNames += 1;
+            error.textContent = missedNames < 2
+              ? "We could not find your name."
+              : "We could not find your name. Contact Carson if you think this may be an error.";
             return;
           }
           if (result.status === "many") {
