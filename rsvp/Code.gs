@@ -15,7 +15,8 @@
  * Response, Note, Responded At, and Group are added if they are missing.
  * Put the same word in Group for both people in a couple. Leave Group
  * blank for a guest who is replying alone. Either person can enter
- * their own name and answer yes or no for both.
+ * their own name and answer yes or no for both. A name that already
+ * has a reply shows that reply first. Changing it takes one more step.
  * Guests are matched on first and last name only. The page never
  * shows the rest of the list. Every name someone tries is added to
  * a tab named Log, including names that are not on the list.
@@ -186,7 +187,6 @@ var PAGE = `<!DOCTYPE html>
     <form id="reply" hidden>
       <p id="hello" class="occasion"></p>
       <p id="together" class="lede" hidden></p>
-      <p id="already" class="quiet" hidden>You already replied. You can change it.</p>
       <p class="lede">Will you be there?</p>
       <div id="people"></div>
       <label for="note">Anything we should know? Optional.</label>
@@ -196,10 +196,16 @@ var PAGE = `<!DOCTYPE html>
       <div><button id="back" class="text-button" type="button">Use a different name</button></div>
     </form>
 
+    <section id="saved" class="card" hidden>
+      <p id="saved-hello" class="occasion"></p>
+      <p class="lede">You already replied.</p>
+      <p id="saved-summary" class="lede"></p>
+      <div><button id="change" class="text-button" type="button">Need to change?</button></div>
+      <div><button id="saved-back" class="text-button" type="button">Use a different name</button></div>
+    </section>
+
     <section id="done" class="card" hidden>
       <p id="thanks" class="occasion"></p>
-      <p class="lede">You can come back and change your reply if your plans change.</p>
-      <button id="again" type="button">Change reply</button>
     </section>
 
     <section id="problem" class="card" hidden>
@@ -212,10 +218,29 @@ var PAGE = `<!DOCTYPE html>
     var party = [];
 
     function show(id) {
-      ["lookup", "reply", "done", "problem"].forEach(function (name) {
+      ["lookup", "reply", "saved", "done", "problem"].forEach(function (name) {
         document.getElementById(name).hidden = name !== id;
       });
       reportHeight();
+    }
+
+    function repliedAlready(people) {
+      return people.some(function (person) {
+        return person.response === "Yes" || person.response === "No";
+      });
+    }
+
+    function replySummary(people) {
+      var coming = 0;
+      for (var i = 0; i < people.length; i++) {
+        if (people[i].response === "Yes") coming++;
+      }
+      if (people.length <= 1) {
+        return coming ? "We have you down as coming." : "We have you down as not coming.";
+      }
+      if (people.length === 2 && coming === 2) return "We have you both down as coming.";
+      if (people.length === 2 && coming === 0) return "We have you both down as not coming.";
+      return "We have your replies.";
     }
 
     function reportHeight() {
@@ -261,12 +286,15 @@ var PAGE = `<!DOCTYPE html>
           together.textContent = party.length === 2
             ? "You can reply for both of you."
             : "You can reply for your group.";
-          document.getElementById("already").hidden = !party.some(function (person) {
-            return person.response === "Yes" || person.response === "No";
-          });
           renderParty(party);
           document.getElementById("note").value = result.note || "";
           document.getElementById("reply-error").textContent = "";
+          if (repliedAlready(party)) {
+            document.getElementById("saved-hello").textContent = "Hi " + result.firstName + ".";
+            document.getElementById("saved-summary").textContent = replySummary(party);
+            show("saved");
+            return;
+          }
           show("reply");
         })
         .withFailureHandler(function () {
@@ -347,10 +375,12 @@ var PAGE = `<!DOCTYPE html>
       show("lookup");
     };
 
-    document.getElementById("again").onclick = function () {
-      document.getElementById("lookup").requestSubmit
-        ? document.getElementById("lookup").requestSubmit()
-        : document.getElementById("continue").click();
+    document.getElementById("saved-back").onclick = function () {
+      show("lookup");
+    };
+
+    document.getElementById("change").onclick = function () {
+      show("reply");
     };
 
     new MutationObserver(function () {
