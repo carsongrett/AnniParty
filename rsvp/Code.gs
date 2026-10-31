@@ -38,38 +38,36 @@ var PAGE = `<!DOCTYPE html>
       margin: 0;
       width: 100%;
     }
-    body {
-      min-height: 100vh;
-    }
     main {
       box-sizing: border-box;
       width: 100%;
       margin: 0;
-      padding: 1.25rem 1rem 2rem;
+      padding: 0.85rem 1rem 0.75rem;
     }
     h1 {
       margin: 0;
       font-weight: 400;
-      font-size: 3.25rem;
-      line-height: 1.05;
+      font-size: 1.65rem;
+      line-height: 1.15;
+      white-space: nowrap;
     }
     .occasion {
-      margin: 0.75rem 0 0;
-      font-size: 2rem;
+      margin: 0.35rem 0 0;
+      font-size: 2.15rem;
       line-height: 1.1;
     }
     .lede {
-      margin: 1.5rem 0 0;
+      margin: 0.4rem 0 0;
       font-family: "Segoe UI", sans-serif;
       font-size: 1rem;
-      line-height: 1.5;
+      line-height: 1.35;
     }
     form, .card {
-      margin-top: 2rem;
+      margin-top: 0.65rem;
     }
     label {
       display: block;
-      margin: 1rem 0 0.4rem;
+      margin: 0.55rem 0 0.25rem;
       font-family: "Segoe UI", sans-serif;
       font-size: 0.78rem;
       letter-spacing: 0.12em;
@@ -84,24 +82,25 @@ var PAGE = `<!DOCTYPE html>
       font: inherit;
       font-family: "Segoe UI", sans-serif;
       font-size: 1rem;
-      padding: 0.85rem 0.9rem;
+      padding: 0.65rem 0.75rem;
     }
     textarea {
-      min-height: 7rem;
-      resize: vertical;
+      height: 2.75rem;
+      min-height: 0;
+      resize: none;
     }
     .choices {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 0.75rem;
-      margin-top: 0.5rem;
+      gap: 0.5rem;
+      margin-top: 0.3rem;
     }
     .choices label {
       position: relative;
       margin: 0;
       border: 1px solid #e3d6c6;
       background: #fffaf3;
-      padding: 1rem;
+      padding: 0.7rem 0.5rem;
       text-align: center;
       letter-spacing: 0.14em;
       cursor: pointer;
@@ -119,8 +118,8 @@ var PAGE = `<!DOCTYPE html>
     button, .text-button {
       box-sizing: border-box;
       width: 100%;
-      margin-top: 1.25rem;
-      min-height: 3rem;
+      margin-top: 0.7rem;
+      min-height: 2.75rem;
       border: 0;
       background: #2c2825;
       color: #f6f1e8;
@@ -138,7 +137,7 @@ var PAGE = `<!DOCTYPE html>
     .text-button {
       display: inline-block;
       width: auto;
-      margin-top: 1.5rem;
+      margin-top: 0.55rem;
       background: transparent;
       color: #6f675f;
       text-decoration: underline;
@@ -152,12 +151,15 @@ var PAGE = `<!DOCTYPE html>
       line-height: 1.5;
     }
     .error {
-      min-height: 1.4rem;
-      margin: 0.9rem 0 0;
+      min-height: 0;
+      margin: 0.3rem 0 0;
+    }
+    .error:empty {
+      margin: 0;
     }
     .person-name {
-      margin: 1.5rem 0 0.45rem;
-      font-size: 1.7rem;
+      margin: 0.55rem 0 0.25rem;
+      font-size: 1.35rem;
       line-height: 1.1;
     }
     .quiet {
@@ -188,7 +190,7 @@ var PAGE = `<!DOCTYPE html>
       <p class="lede">Will you be there?</p>
       <div id="people"></div>
       <label for="note">Anything we should know? Optional.</label>
-      <textarea id="note" name="note" maxlength="500"></textarea>
+      <textarea id="note" name="note" maxlength="500" rows="1"></textarea>
       <p id="reply-error" class="error" role="alert"></p>
       <button id="send" type="submit">Send reply</button>
       <div><button id="back" class="text-button" type="button">Use a different name</button></div>
@@ -213,6 +215,14 @@ var PAGE = `<!DOCTYPE html>
       ["lookup", "reply", "done", "problem"].forEach(function (name) {
         document.getElementById(name).hidden = name !== id;
       });
+      reportHeight();
+    }
+
+    function reportHeight() {
+      var main = document.querySelector("main");
+      if (!main || !window.top || window.top === window) return;
+      var height = Math.ceil(main.getBoundingClientRect().height);
+      window.top.postMessage({ source: "grett-rsvp", height: height }, "*");
     }
 
     function busy(button, waiting, label) {
@@ -342,6 +352,17 @@ var PAGE = `<!DOCTYPE html>
         ? document.getElementById("lookup").requestSubmit()
         : document.getElementById("continue").click();
     };
+
+    new MutationObserver(function () {
+      reportHeight();
+    }).observe(document.body, {
+      subtree: true,
+      childList: true,
+      attributes: true,
+      characterData: true
+    });
+    window.addEventListener("resize", reportHeight);
+    reportHeight();
   </script>
 </body>
 </html>`;

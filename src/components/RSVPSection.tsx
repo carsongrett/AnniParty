@@ -7,12 +7,34 @@ export function RSVPSection() {
   const embedCode = event.rsvpifyEmbedCode.trim();
   const eventUrl = embedSrc(event.rsvpifyEventUrl);
   const fallback = httpUrl(event.rsvpifyUrl);
+  const frameRef = useRef<HTMLIFrameElement>(null);
+
+  useEffect(() => {
+    function onMessage(event: MessageEvent) {
+      const origin = event.origin;
+      const fromGoogle =
+        origin === "https://script.google.com" ||
+        origin.endsWith(".googleusercontent.com");
+      if (!fromGoogle) return;
+      const data = event.data as { source?: string; height?: unknown } | null;
+      if (!data || data.source !== "grett-rsvp") return;
+      const height = data.height;
+      if (typeof height !== "number" || height < 160 || height > 1400) return;
+      const frame = frameRef.current;
+      if (!frame) return;
+      frame.style.height = `${Math.ceil(height)}px`;
+    }
+
+    window.addEventListener("message", onMessage);
+    return () => window.removeEventListener("message", onMessage);
+  }, []);
 
   return (
     <section id="rsvp" className="scroll-mt-32 border-t border-line bg-cream">
-      <div className="mx-auto max-w-3xl px-5 py-14 text-center md:px-8 md:py-20">
+      <div className="mx-auto max-w-3xl px-5 py-5 text-center md:px-8 md:py-16">
         {pageUrl ? (
           <iframe
+            ref={frameRef}
             title="RSVP"
             src={pageUrl}
             className="block h-[32rem] w-full border-0 bg-ivory"
