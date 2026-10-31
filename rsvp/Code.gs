@@ -176,6 +176,9 @@ var PAGE = `<!DOCTYPE html>
       margin: 0.9rem 0 0;
       font-size: 1.35rem;
     }
+    #calendar {
+      text-align: center;
+    }
     a.action {
       display: flex;
       align-items: center;
@@ -263,6 +266,9 @@ var PAGE = `<!DOCTYPE html>
       ["lookup", "reply", "saved", "done", "problem"].forEach(function (name) {
         document.getElementById(name).hidden = name !== id;
       });
+      var heading = document.querySelector("h1");
+      heading.textContent = id === "done" ? "Thank you!" : "Find your invitation.";
+      heading.hidden = id === "reply" || id === "saved";
       reportHeight();
     }
 
