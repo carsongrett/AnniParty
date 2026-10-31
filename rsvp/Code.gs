@@ -52,6 +52,12 @@ var PAGE = `<!DOCTYPE html>
       line-height: 1.15;
       white-space: nowrap;
     }
+    h1.thanks {
+      font-size: 3rem;
+      line-height: 1.05;
+      text-align: center;
+      white-space: normal;
+    }
     .occasion {
       margin: 0.35rem 0 0;
       font-size: 2.15rem;
@@ -172,6 +178,14 @@ var PAGE = `<!DOCTYPE html>
       margin: 0.45rem 0 0;
       font-size: 1.35rem;
     }
+    #done {
+      text-align: center;
+    }
+    #done .note {
+      margin: 0.85rem 0 0;
+      font-size: 1.85rem;
+      line-height: 1.25;
+    }
     [hidden] {
       display: none !important;
     }
@@ -213,8 +227,8 @@ var PAGE = `<!DOCTYPE html>
     </section>
 
     <section id="done" class="card" hidden>
-      <p class="lede">We received your reply.</p>
-      <p id="thanks-miss" class="miss" hidden>We'll miss you!</p>
+      <p id="thanks-note" class="note">We can't wait to celebrate with you.</p>
+      <p id="thanks-miss" class="note" hidden>We'll miss you!</p>
     </section>
 
     <section id="problem" class="card" hidden>
@@ -232,6 +246,7 @@ var PAGE = `<!DOCTYPE html>
       });
       var heading = document.querySelector("h1");
       heading.textContent = id === "done" ? "Thank you!" : "Find your invitation.";
+      heading.className = id === "done" ? "thanks" : "";
       heading.hidden = id === "reply" || id === "saved";
       reportHeight();
     }
@@ -358,9 +373,11 @@ var PAGE = `<!DOCTYPE html>
             error.textContent = "Something went wrong. Try again in a minute.";
             return;
           }
-          document.getElementById("thanks-miss").hidden = !bothNo(replies.map(function (reply) {
+          var missed = bothNo(replies.map(function (reply) {
             return reply.attending;
           }));
+          document.getElementById("thanks-note").hidden = missed;
+          document.getElementById("thanks-miss").hidden = !missed;
           show("done");
         })
         .withFailureHandler(function () {
