@@ -89,6 +89,7 @@ export function EventDetails() {
     },
     { label: "Dress code", value: event.dressCode },
     { label: "Food & drink", value: event.menu },
+    { label: "RSVP deadline", value: event.rsvpDeadline },
   ];
 
   return (
