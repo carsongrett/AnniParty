@@ -24,8 +24,7 @@ export type FaqItem = {
   answer: string;
 };
 
-const rsvpDeadline =
-  "We're aiming for December 15. The final deadline is not set yet.";
+const rsvpDeadline = "Please RSVP by December 15th.";
 
 export const event = {
   name: "The Gretts",
