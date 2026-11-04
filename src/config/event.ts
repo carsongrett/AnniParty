@@ -240,5 +240,15 @@ export const event = {
       answer:
         "No need for a gift. We do love a handwritten card, though. Feel free to drop one in our card box with your well wishes!",
     },
+    {
+      question: "Can I bring a plus one?",
+      answer:
+        "Your invitation will disclose if you have the option to bring a plus one or not.",
+    },
+    {
+      question: "What is the setting?",
+      answer:
+        "It is an indoor/covered rooftop bar. Elevators and stairs to the left of entrance. We will be on the 3rd floor.",
+    },
   ] as FaqItem[],
 };
